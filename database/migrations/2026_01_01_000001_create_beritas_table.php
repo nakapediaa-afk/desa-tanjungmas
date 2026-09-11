@@ -10,12 +10,14 @@ return new class extends Migration {
             $table->id();
             $table->string('judul');
             $table->string('slug')->unique();
-            $table->string('kategori');
-            $table->string('penulis')->default('Admin Desa');
+            $table->string('kategori')->default('Umum')->index();
+            $table->string('penulis')->default('Pemerintah Desa');
             $table->text('ringkasan');
             $table->longText('isi');
             $table->string('gambar')->nullable();
             $table->timestamps();
+            
+            $table->index('created_at');
         });
     }
 

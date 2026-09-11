@@ -9,13 +9,15 @@ return new class extends Migration {
         Schema::create('umkms', function (Blueprint $table) {
             $table->id();
             $table->string('nama_produk');
-            $table->string('kategori');
-            $table->integer('harga');
+            $table->string('kategori')->default('Kuliner')->index();
+            $table->decimal('harga', 15, 2)->default(0);
             $table->string('penjual');
-            $table->string('telepon');
+            $table->string('telepon')->nullable();
             $table->text('deskripsi');
             $table->string('gambar')->nullable();
             $table->timestamps();
+            
+            $table->index('created_at');
         });
     }
 

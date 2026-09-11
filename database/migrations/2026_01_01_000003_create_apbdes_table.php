@@ -8,7 +8,7 @@ return new class extends Migration {
     public function up(): void {
         Schema::create('apbdes', function (Blueprint $table) {
             $table->id();
-            $table->string('jenis'); // 'pendapatan' atau 'belanja'
+            $table->enum('jenis', ['pendapatan', 'belanja'])->index();
             $table->string('nama_pos');
             $table->bigInteger('jumlah');
             $table->integer('persen')->default(0);
