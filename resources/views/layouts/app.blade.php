@@ -4,8 +4,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>@yield('title', 'Website Resmi Desa Tanjung Mas') - Kec. Kampar Kiri, Riau</title>
-    <meta name="description" content="Portal Sistem Informasi Resmi dan Pelayanan Publik Terpadu Pemerintah Desa Tanjung Mas, Kecamatan Kampar Kiri, Kabupaten Kampar, Provinsi Riau.">
+    
+    <!-- SEO Master Tags -->
+    <title>@yield('title', 'Website Resmi Desa Tanjung Mas') - Kec. Kampar Kiri, Kab. Kampar, Riau</title>
+    <meta name="description" content="@yield('meta_description', 'Portal Resmi Sistem Informasi dan Layanan Publik Terpadu Pemerintah Desa Tanjung Mas, Kecamatan Kampar Kiri, Kabupaten Kampar, Provinsi Riau.')">
+    <meta name="keywords" content="Desa Tanjung Mas, Kampar Kiri, Kabupaten Kampar, Riau, Website Desa, Layanan Surat Desa, APBDes Tanjung Mas, Sawit Tanjung Mas, Karet Tanjung Mas, Berita Desa Tanjung Mas">
+    <meta name="author" content="Pemerintah Desa Tanjung Mas">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="{{ url()->current() }}">
+
+    <!-- Open Graph / Facebook / WhatsApp Preview -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:title" content="@yield('title', 'Website Resmi Desa Tanjung Mas') - Kec. Kampar Kiri, Riau">
+    <meta property="og:description" content="@yield('meta_description', 'Portal Resmi Sistem Informasi dan Layanan Publik Terpadu Pemerintah Desa Tanjung Mas, Kecamatan Kampar Kiri, Kabupaten Kampar, Riau.')">
+    <meta property="og:image" content="@yield('meta_image', 'https://images.unsplash.com/photo-1588392382834-a891154bca4d?w=1200&auto=format&fit=crop&q=80')">
+    <meta property="og:locale" content="id_ID">
+    <meta property="og:site_name" content="Desa Tanjung Mas">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="@yield('title', 'Website Resmi Desa Tanjung Mas') - Kec. Kampar Kiri, Riau">
+    <meta name="twitter:description" content="@yield('meta_description', 'Portal Resmi Sistem Informasi Desa Tanjung Mas, Kecamatan Kampar Kiri, Kabupaten Kampar, Riau.')">
+    <meta name="twitter:image" content="@yield('meta_image', 'https://images.unsplash.com/photo-1588392382834-a891154bca4d?w=1200&auto=format&fit=crop&q=80')">
+
+    <!-- Schema.org JSON-LD Structured Data for Google -->
+    <script type="application/ld+json">
+    {
+      "@@context": "https://schema.org",
+      "@@type": "GovernmentOrganization",
+      "name": "Pemerintah Desa Tanjung Mas",
+      "url": "{{ url('/') }}",
+      "address": {
+        "@@type": "PostalAddress",
+        "streetAddress": "Jl. Lintas Lipat Kain - Lubuk Agung",
+        "addressLocality": "Kecamatan Kampar Kiri",
+        "addressRegion": "Riau",
+        "postalCode": "28472",
+        "addressCountry": "ID"
+      },
+      "telephone": "+6281234567890",
+      "email": "kantor@tanjungmas-kampar.desa.id"
+    }
+    </script>
 
     <!-- Preconnect for Performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com">

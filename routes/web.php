@@ -35,3 +35,44 @@ Route::delete('/admin/berita/{id}', [AdminController::class, 'destroyBerita'])->
 
 Route::post('/admin/umkm', [AdminController::class, 'storeUmkm'])->name('admin.umkm.store');
 Route::delete('/admin/umkm/{id}', [AdminController::class, 'destroyUmkm'])->name('admin.umkm.destroy');
+
+// Dynamic SEO XML Sitemap
+Route::get('/sitemap.xml', function () {
+    $beritas = \App\Models\Berita::latest()->get();
+    $baseUrl = url('/');
+    
+    $xml = '<?xml version="1.0" encoding="UTF-8"?>';
+    $xml .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
+    
+    $staticRoutes = [
+        '/',
+        '/profil',
+        '/berita',
+        '/layanan',
+        '/statistik',
+        '/apbdes',
+        '/umkm'
+    ];
+    
+    foreach ($staticRoutes as $r) {
+        $xml .= '<url>';
+        $xml .= '<loc>' . $baseUrl . $r . '</loc>';
+        $xml .= '<lastmod>' . date('Y-m-d') . '</lastmod>';
+        $xml .= '<changefreq>weekly</changefreq>';
+        $xml .= '<priority>' . ($r === '/' ? '1.0' : '0.8') . '</priority>';
+        $xml .= '</url>';
+    }
+    
+    foreach ($beritas as $b) {
+        $xml .= '<url>';
+        $xml .= '<loc>' . route('berita.show', $b->slug) . '</loc>';
+        $xml .= '<lastmod>' . $b->updated_at->format('Y-m-d') . '</lastmod>';
+        $xml .= '<changefreq>monthly</changefreq>';
+        $xml .= '<priority>0.7</priority>';
+        $xml .= '</url>';
+    }
+    
+    $xml .= '</urlset>';
+    
+    return response($xml, 200)->header('Content-Type', 'text/xml');
+});
