@@ -86,14 +86,19 @@
 
     <!-- Top Info Bar (Public) -->
     <div class="topbar">
-        <div class="container topbar-content">
-            <div class="topbar-left">
-                <span>📍 Kantor Desa Tanjung Mas, Kec. Kampar Kiri, Kab. Kampar, Riau 28472</span>
-                <span class="topbar-divider">|</span>
-                <span>🕒 Pelayanan: Senin - Jumat 08.00 - 15.30 WIB</span>
+        <div class="container topbar-wrapper">
+            <div class="topbar-info">
+                <div class="topbar-item">
+                    <span class="topbar-badge">RESMI</span>
+                    <span>Kantor Desa Tanjung Mas &bull; Kampar Kiri, Riau</span>
+                </div>
+                <div class="topbar-item">
+                    <i data-lucide="clock" style="width:13px; height:13px;"></i>
+                    <span>Senin - Jumat 08.00 - 15.30 WIB</span>
+                </div>
             </div>
-            <div class="topbar-right">
-                <button id="themeToggle" class="theme-toggle-btn" title="Ganti Tema Tampilan" aria-label="Toggle Theme">
+            <div>
+                <button id="themeToggle" class="theme-toggle-btn" title="Ganti Mode Tampilan" aria-label="Toggle Theme">
                     <i id="themeIcon" data-lucide="moon" style="width:14px; height:14px;"></i>
                     <span id="themeText">Mode Tampilan</span>
                 </button>
@@ -101,57 +106,57 @@
         </div>
     </div>
 
-    <!-- Main Navigation Bar -->
-    <header class="navbar-wrapper">
-        <nav class="container navbar">
+    <!-- Main Navigation Header -->
+    <header class="header">
+        <div class="container nav-wrapper">
             <a href="{{ route('home') }}" class="brand-link" aria-label="Beranda Desa Tanjung Mas">
-                <div class="brand-logo-icon">
+                <div class="brand-emblem">
                     <i data-lucide="landmark" style="width:22px; height:22px;"></i>
                 </div>
-                <div class="brand-info">
+                <div class="brand-text">
                     <span class="brand-title">DESA TANJUNG MAS</span>
-                    <span class="brand-subtitle">Kec. Kampar Kiri &bull; Kab. Kampar</span>
+                    <span class="brand-subtitle">Kec. Kampar Kiri &bull; Kab. Kampar, Riau</span>
                 </div>
             </a>
 
-            <!-- Desktop Nav Items -->
-            <ul class="nav-links">
-                <li><a href="{{ route('home') }}" class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}">Beranda</a></li>
-                <li><a href="{{ route('profil.index') }}" class="nav-link {{ request()->routeIs('profil.*') ? 'active' : '' }}">Profil</a></li>
-                <li><a href="{{ route('berita.index') }}" class="nav-link {{ request()->routeIs('berita.*') ? 'active' : '' }}">Warta Desa</a></li>
-                <li><a href="{{ route('layanan.index') }}" class="nav-link {{ request()->routeIs('layanan.*') ? 'active' : '' }}">Layanan Surat</a></li>
-                <li><a href="{{ route('statistik.index') }}" class="nav-link {{ request()->routeIs('statistik.*') ? 'active' : '' }}">Statistik</a></li>
-                <li><a href="{{ route('apbdes.index') }}" class="nav-link {{ request()->routeIs('apbdes.*') ? 'active' : '' }}">APBDes</a></li>
-                <li><a href="{{ route('umkm.index') }}" class="nav-link {{ request()->routeIs('umkm.*') ? 'active' : '' }}">Komoditas &amp; UMKM</a></li>
+            <!-- Desktop Nav Menu -->
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="{{ route('home') }}" class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}">Beranda</a></li>
+                <li class="nav-item"><a href="{{ route('profil.index') }}" class="nav-link {{ request()->routeIs('profil.*') ? 'active' : '' }}">Profil</a></li>
+                <li class="nav-item"><a href="{{ route('berita.index') }}" class="nav-link {{ request()->routeIs('berita.*') ? 'active' : '' }}">Warta Desa</a></li>
+                <li class="nav-item"><a href="{{ route('layanan.index') }}" class="nav-link {{ request()->routeIs('layanan.*') ? 'active' : '' }}">Layanan Surat</a></li>
+                <li class="nav-item"><a href="{{ route('statistik.index') }}" class="nav-link {{ request()->routeIs('statistik.*') ? 'active' : '' }}">Statistik</a></li>
+                <li class="nav-item"><a href="{{ route('apbdes.index') }}" class="nav-link {{ request()->routeIs('apbdes.*') ? 'active' : '' }}">APBDes</a></li>
+                <li class="nav-item"><a href="{{ route('umkm.index') }}" class="nav-link {{ request()->routeIs('umkm.*') ? 'active' : '' }}">Komoditas &amp; UMKM</a></li>
             </ul>
 
             <!-- Mobile Hamburger Button -->
-            <button id="drawerOpenBtn" class="drawer-btn" aria-label="Buka Menu Navigasi">
+            <button id="drawerOpenBtn" class="mobile-toggle" aria-label="Buka Menu Navigasi">
                 <i data-lucide="menu" style="width:20px; height:20px;"></i>
             </button>
-        </nav>
+        </div>
     </header>
 
     <!-- Mobile Navigation Drawer -->
-    <div id="drawerBackdrop" class="drawer-backdrop"></div>
-    <div id="mobileDrawer" class="drawer">
-        <div class="drawer-header">
-            <div style="display:flex; align-items:center; gap:0.6rem;">
-                <div class="brand-logo-icon" style="width:36px; height:36px;">
-                    <i data-lucide="landmark" style="width:18px; height:18px;"></i>
+    <div id="mobileDrawer" class="mobile-drawer">
+        <div id="drawerBackdrop" class="drawer-backdrop"></div>
+        <div class="drawer-panel">
+            <div class="drawer-header">
+                <div style="display:flex; align-items:center; gap:0.6rem;">
+                    <div class="brand-emblem" style="width:36px; height:36px; border-radius:8px;">
+                        <i data-lucide="landmark" style="width:18px; height:18px;"></i>
+                    </div>
+                    <div>
+                        <div style="font-weight:700; font-size:0.95rem; color:var(--text-heading);">DESA TANJUNG MAS</div>
+                        <div style="font-size:0.75rem; color:var(--text-muted);">Kampar Kiri, Riau</div>
+                    </div>
                 </div>
-                <div>
-                    <div style="font-weight:800; font-size:0.95rem; color:var(--text-primary);">DESA TANJUNG MAS</div>
-                    <div style="font-size:0.75rem; color:var(--text-muted);">Kampar Kiri, Riau</div>
-                </div>
+                <button id="drawerCloseBtn" aria-label="Tutup Menu" style="background:none; border:none; color:var(--text-muted); cursor:pointer; padding:0.25rem; display:grid; place-items:center;">
+                    <i data-lucide="x" style="width:20px; height:20px;"></i>
+                </button>
             </div>
-            <button id="drawerCloseBtn" class="drawer-close" aria-label="Tutup Menu">
-                <i data-lucide="x" style="width:18px; height:18px;"></i>
-            </button>
-        </div>
 
-        <div class="drawer-body">
-            <div class="drawer-links">
+            <div class="drawer-nav">
                 <a href="{{ route('home') }}" class="drawer-link {{ request()->routeIs('home') ? 'active' : '' }}">
                     <i data-lucide="home" style="width:18px; height:18px;"></i>
                     <span>Beranda Utama</span>
