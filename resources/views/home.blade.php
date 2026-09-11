@@ -26,7 +26,7 @@
 
         <div class="hero-visual">
             <div class="hero-frame">
-                <img src="https://images.unsplash.com/photo-1588392382834-a891154bca4d?w=800&auto=format&fit=crop&q=80" alt="Bentang Alam Perkebunan Kampar Kiri">
+                <img src="https://images.unsplash.com/photo-1588392382834-a891154bca4d?w=800&auto=format&fit=crop&q=80" alt="Bentang Alam Perkebunan Kampar Kiri" loading="lazy" decoding="async">
             </div>
             <div class="hero-badge-card">
                 <div style="width:40px; height:40px; border-radius:50%; background:var(--brand-primary-light); color:var(--brand-primary); display:grid; place-items:center;">
@@ -45,40 +45,40 @@
 <section class="bento-section">
     <div class="container">
         <div class="bento-grid">
-            <a href="{{ route('layanan.index') }}" class="bento-card" style="--card-accent: #15803d; --icon-bg: #dcfce7; --icon-color: #15803d;">
+            <a href="{{ route('layanan.index') }}" class="bento-card">
                 <div>
-                    <div class="bento-icon"><i data-lucide="file-check-2" style="width:24px; height:24px;"></i></div>
+                    <div class="bento-icon" style="background:var(--brand-primary-light); color:var(--brand-primary);"><i data-lucide="file-check-2" style="width:24px; height:24px;"></i></div>
                     <h3 class="bento-title">Layanan Surat</h3>
                     <p class="bento-desc">Persyaratan dan permohonan SKU Usaha/Kebun, SKTM, Pengantar SKCK, &amp; Domisili.</p>
                 </div>
-                <div class="bento-cta">Lihat Persyaratan &rarr;</div>
+                <div class="bento-cta" style="color:var(--brand-primary);">Lihat Persyaratan &rarr;</div>
             </a>
 
-            <a href="{{ route('berita.index') }}" class="bento-card" style="--card-accent: #0284c7; --icon-bg: #e0f2fe; --icon-color: #0284c7;">
+            <a href="{{ route('berita.index') }}" class="bento-card">
                 <div>
-                    <div class="bento-icon"><i data-lucide="newspaper" style="width:24px; height:24px;"></i></div>
+                    <div class="bento-icon" style="background:var(--brand-blue-light); color:var(--brand-blue);"><i data-lucide="newspaper" style="width:24px; height:24px;"></i></div>
                     <h3 class="bento-title">Warta Desa</h3>
-                    <p class="bento-desc">Pengumuman resmi, musyawarah pembangunan desa, dan agenda Masjid Al-Ikhlas.</p>
+                    <p class="bento-desc">Pengumuman resmi, musyawarah pembangunan desa, dan agenda kemasyarakatan.</p>
                 </div>
-                <div class="bento-cta">Baca Kabar Terkini &rarr;</div>
+                <div class="bento-cta" style="color:var(--brand-blue);">Baca Kabar Terkini &rarr;</div>
             </a>
 
-            <a href="{{ route('apbdes.index') }}" class="bento-card" style="--card-accent: #d97706; --icon-bg: #fef3c7; --icon-color: #d97706;">
+            <a href="{{ route('apbdes.index') }}" class="bento-card">
                 <div>
-                    <div class="bento-icon"><i data-lucide="pie-chart" style="width:24px; height:24px;"></i></div>
+                    <div class="bento-icon" style="background:var(--brand-accent-light); color:var(--brand-accent);"><i data-lucide="pie-chart" style="width:24px; height:24px;"></i></div>
                     <h3 class="bento-title">Transparansi Dana</h3>
                     <p class="bento-desc">Realisasi terbuka Dana Desa (DD), ADD Kampar, dan Bantuan Keuangan Provinsi.</p>
                 </div>
-                <div class="bento-cta">Lihat Anggaran &rarr;</div>
+                <div class="bento-cta" style="color:var(--brand-accent);">Lihat Anggaran &rarr;</div>
             </a>
 
-            <a href="{{ route('umkm.index') }}" class="bento-card" style="--card-accent: #059669; --icon-bg: #d1fae5; --icon-color: #059669;">
+            <a href="{{ route('umkm.index') }}" class="bento-card">
                 <div>
-                    <div class="bento-icon"><i data-lucide="store" style="width:24px; height:24px;"></i></div>
+                    <div class="bento-icon" style="background:var(--brand-primary-light); color:var(--brand-primary);"><i data-lucide="store" style="width:24px; height:24px;"></i></div>
                     <h3 class="bento-title">Pasar UMKM</h3>
                     <p class="bento-desc">Katalog bibit sawit unggul, karet bokar rakyat, dan olahan ikan salai Kampar.</p>
                 </div>
-                <div class="bento-cta">Jelajahi Produk &rarr;</div>
+                <div class="bento-cta" style="color:var(--brand-primary);">Jelajahi Produk &rarr;</div>
             </a>
         </div>
     </div>
@@ -89,20 +89,20 @@
     <div class="container">
         <div class="stat-grid">
             <div class="stat-box">
-                <div class="stat-number">{{ number_format($stats->total_penduduk ?? 2450) }}</div>
+                <div class="stat-number">{{ number_format($stats->total_penduduk ?? 1155) }}</div>
                 <div class="stat-label">Jiwa Penduduk</div>
             </div>
             <div class="stat-box">
-                <div class="stat-number">{{ number_format($stats->kepala_keluarga ?? 680) }}</div>
+                <div class="stat-number">{{ number_format($stats->kepala_keluarga ?? 259) }}</div>
                 <div class="stat-label">Kepala Keluarga (KK)</div>
             </div>
             <div class="stat-box">
-                <div class="stat-number">&plusmn; 150 km² (15.000 Ha)</div>
-                <div class="stat-label">Luas Wilayah Perbukitan</div>
+                <div class="stat-number">&plusmn; 150 km&sup2; (15.000 Ha)</div>
+                <div class="stat-label">Luas Wilayah Desa</div>
             </div>
             <div class="stat-box">
                 <div class="stat-number">{{ $stats->dusun ?? 4 }} Dusun</div>
-                <div class="stat-label">Dusun I, Pasir Putih &amp; RT {{ $stats->rt ?? 12 }}</div>
+                <div class="stat-label">Tanjung Mas &bull; Pasir Putih &bull; Setingkai &bull; Napal</div>
             </div>
         </div>
     </div>
@@ -126,7 +126,7 @@
             @php $featured = $berita->first(); @endphp
             <article class="featured-card">
                 <div class="featured-img-wrap">
-                    <img src="{{ $featured->gambar }}" alt="{{ $featured->judul }}">
+                    <img src="{{ $featured->gambar }}" alt="{{ $featured->judul }}" loading="lazy" decoding="async">
                 </div>
                 <div class="featured-body">
                     <div>
@@ -140,8 +140,8 @@
                         </h3>
                         <p class="news-excerpt">{{ Str::limit($featured->ringkasan, 140) }}</p>
                     </div>
-                    <div>
-                        <a href="{{ route('berita.show', $featured->slug) }}" class="btn btn-outline btn-sm" style="color:var(--brand-primary); border-color:var(--brand-primary);">
+                    <div style="margin-top:1.25rem;">
+                        <a href="{{ route('berita.show', $featured->slug) }}" class="btn-read-more">
                             Baca Selengkapnya &rarr;
                         </a>
                     </div>
@@ -151,7 +151,7 @@
             <div class="news-stream">
                 @foreach($berita->skip(1) as $item)
                 <article class="stream-item">
-                    <img src="{{ $item->gambar }}" alt="{{ $item->judul }}" class="stream-thumb">
+                    <img src="{{ $item->gambar }}" alt="{{ $item->judul }}" class="stream-thumb" loading="lazy" decoding="async">
                     <div>
                         <div style="font-size:0.75rem; color:var(--text-muted); margin-bottom:0.2rem;">
                             <span class="badge badge-neutral" style="font-size:0.7rem;">{{ $item->kategori }}</span>
@@ -182,7 +182,7 @@
         <div class="staff-grid">
             @foreach($perangkat as $p)
             <div class="staff-card">
-                <img src="{{ $p->foto }}" alt="{{ $p->nama }}" class="staff-photo">
+                <img src="{{ $p->foto }}" alt="{{ $p->nama }}" class="staff-photo" loading="lazy" decoding="async">
                 <div class="staff-name">{{ $p->nama }}</div>
                 <div class="staff-role">{{ $p->jabatan }}</div>
             </div>

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Warta & Kabar Desa')
-@section('meta_desc', 'Berita dan pengumuman resmi dari Pemerintah Desa Tanjung Mas, Kecamatan Kampar Kiri, Kabupaten Kampar.')
+@section('meta_description', 'Berita dan pengumuman resmi dari Pemerintah Desa Tanjung Mas, Kecamatan Kampar Kiri, Kabupaten Kampar.')
 
 @section('content')
 <div class="page-header">
@@ -25,7 +25,7 @@
             @foreach($berita as $b)
             <article class="featured-card">
                 <div class="featured-img-wrap">
-                    <img src="{{ $b->gambar }}" alt="{{ $b->judul }}">
+                    <img src="{{ $b->gambar }}" alt="{{ $b->judul }}" loading="lazy" decoding="async">
                 </div>
                 <div class="featured-body">
                     <div>
@@ -39,8 +39,8 @@
                         </h3>
                         <p class="news-excerpt">{{ Str::limit($b->ringkasan, 120) }}</p>
                     </div>
-                    <div style="margin-top:1rem;">
-                        <a href="{{ route('berita.show', $b->slug) }}" class="btn btn-outline btn-sm" style="color:var(--brand-primary); border-color:var(--brand-primary);">
+                    <div style="margin-top:1.25rem;">
+                        <a href="{{ route('berita.show', $b->slug) }}" class="btn-read-more">
                             Baca Selengkapnya &rarr;
                         </a>
                     </div>

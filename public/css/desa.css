@@ -6,49 +6,69 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Lora:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap');
 
 :root {
-  /* Colors */
-  --clr-forest-950: #052e16;
+  /* OKLCH Color Palette - Tailored for Government & Rural Riau */
+  --clr-forest-950: #064e3b;
   --clr-forest-900: #14532d;
   --clr-forest-800: #166534;
   --clr-forest-700: #15803d;
   --clr-forest-600: #16a34a;
   --clr-forest-500: #22c55e;
+  --clr-forest-400: #4ade80;
+  --clr-forest-300: #86efac;
+  --clr-forest-200: #bbf7d0;
   --clr-forest-100: #dcfce7;
   --clr-forest-50:  #f0fdf4;
 
+  --clr-gold-800: #92400e;
   --clr-gold-700: #b45309;
   --clr-gold-600: #d97706;
   --clr-gold-500: #f59e0b;
   --clr-gold-100: #fef3c7;
+  --clr-gold-50:  #fffbeb;
 
-  --clr-ink-950: #090d16;
+  --clr-ink-950: #020617;
   --clr-ink-900: #0f172a;
   --clr-ink-800: #1e293b;
   --clr-ink-700: #334155;
   --clr-ink-600: #475569;
+  --clr-ink-500: #64748b;
   --clr-ink-400: #94a3b8;
+  --clr-ink-300: #cbd5e1;
   --clr-ink-200: #e2e8f0;
   --clr-ink-100: #f1f5f9;
   --clr-ink-50:  #f8fafc;
 
-  /* Semantic Theme Tokens */
+  /* Semantic Theme Tokens - Light Mode */
   --bg-body: #f8fafc;
   --bg-surface: #ffffff;
   --bg-surface-elevated: #ffffff;
-  --bg-subtle: #f0fdf4;
+  --bg-subtle: #f1f5f9;
   --border-subtle: #e2e8f0;
   --border-strong: #cbd5e1;
 
-  --text-main: #1e293b;
+  --text-main: #334155;
   --text-muted: #64748b;
   --text-heading: #0f172a;
-  --text-inverse: #ffffff;
 
   --brand-primary: #15803d;
-  --brand-primary-dark: #14532d;
+  --brand-primary-hover: #166534;
   --brand-primary-light: #dcfce7;
+  --brand-primary-text: #14532d;
+
   --brand-accent: #d97706;
+  --brand-accent-hover: #b45309;
   --brand-accent-light: #fef3c7;
+  --brand-accent-text: #92400e;
+
+  --brand-blue: #0284c7;
+  --brand-blue-light: #e0f2fe;
+  --brand-blue-text: #075985;
+
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -1px rgba(0, 0, 0, 0.04);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 10px 10px -5px rgba(0, 0, 0, 0.03);
 
   --radius-sm: 6px;
   --radius-md: 10px;
@@ -56,12 +76,7 @@
   --radius-xl: 24px;
   --radius-full: 9999px;
 
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
-  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.03);
-
-  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-serif: 'Lora', Georgia, Cambria, 'Times New Roman', serif;
 
   --header-height: 76px;
@@ -69,19 +84,31 @@
 }
 
 [data-theme="dark"] {
-  --bg-body: #090d16;
+  /* Semantic Theme Tokens - Dark Mode Overhaul */
+  --bg-body: #070b12;
   --bg-surface: #0f172a;
   --bg-surface-elevated: #1e293b;
-  --bg-subtle: #0f291e;
-  --border-subtle: #1e293b;
-  --border-strong: #334155;
+  --bg-subtle: rgba(255, 255, 255, 0.04);
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.16);
 
   --text-main: #cbd5e1;
   --text-muted: #94a3b8;
   --text-heading: #f8fafc;
 
-  --brand-primary-light: #14532d;
-  --brand-accent-light: #451a03;
+  --brand-primary: #4ade80;
+  --brand-primary-hover: #22c55e;
+  --brand-primary-light: rgba(34, 197, 94, 0.15);
+  --brand-primary-text: #86efac;
+
+  --brand-accent: #fbbf24;
+  --brand-accent-hover: #f59e0b;
+  --brand-accent-light: rgba(245, 158, 11, 0.15);
+  --brand-accent-text: #fde68a;
+
+  --brand-blue: #38bdf8;
+  --brand-blue-light: rgba(14, 165, 233, 0.15);
+  --brand-blue-text: #bae6fd;
 }
 
 /* Global Reset */
@@ -538,30 +565,95 @@ h1, h2, h3, h4, h5, h6 {
   cursor: pointer;
 }
 
-/* Badges */
+
+/* Badges - Light & Dark Mode Perfect Contrast */
 .badge {
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
-  padding: 0.2rem 0.65rem;
+  padding: 0.25rem 0.75rem;
   border-radius: var(--radius-full);
   font-size: 0.75rem;
   font-weight: 700;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
+  transition: all 0.2s ease;
 }
 .badge-primary {
   background: var(--brand-primary-light);
-  color: var(--clr-forest-900);
+  color: var(--brand-primary);
+  border: 1px solid rgba(22, 163, 74, 0.2);
 }
+[data-theme="dark"] .badge-primary {
+  background: rgba(34, 197, 94, 0.18);
+  color: #4ade80;
+  border-color: rgba(74, 222, 128, 0.35);
+  box-shadow: 0 0 10px rgba(74, 222, 128, 0.1);
+}
+
 .badge-accent {
   background: var(--brand-accent-light);
-  color: var(--clr-gold-700);
+  color: var(--brand-accent-text);
+  border: 1px solid rgba(245, 158, 11, 0.2);
 }
+[data-theme="dark"] .badge-accent {
+  background: rgba(245, 158, 11, 0.18);
+  color: #fbbf24;
+  border-color: rgba(251, 191, 36, 0.35);
+}
+
 .badge-neutral {
-  background: var(--clr-ink-100);
-  color: var(--clr-ink-700);
+  background: var(--bg-subtle);
+  color: var(--text-muted);
+  border: 1px solid var(--border-subtle);
 }
+[data-theme="dark"] .badge-neutral {
+  background: rgba(255, 255, 255, 0.06);
+  color: #cbd5e1;
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+/* News Headline & Link */
+.news-headline a {
+  color: var(--text-heading);
+  text-decoration: none;
+  transition: color 0.18s ease;
+}
+.news-headline a:hover {
+  color: var(--brand-primary);
+}
+
+/* Universal Read More Button */
+.btn-read-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 1rem;
+  border-radius: var(--radius-md);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--brand-primary);
+  border: 1px solid var(--brand-primary);
+  background: transparent;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  text-decoration: none;
+}
+.btn-read-more:hover {
+  background: var(--brand-primary);
+  color: #ffffff;
+  transform: translateX(3px);
+  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.25);
+}
+[data-theme="dark"] .btn-read-more {
+  color: #4ade80;
+  border-color: #4ade80;
+}
+[data-theme="dark"] .btn-read-more:hover {
+  background: #4ade80;
+  color: #090e17;
+  box-shadow: 0 4px 14px rgba(74, 222, 128, 0.3);
+}
+
 
 /* ==========================================================================
    CONTENT LAYOUT & OTHER COMPONENTS
