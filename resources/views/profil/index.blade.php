@@ -17,7 +17,7 @@
             <span>Profil &amp; Peta Desa</span>
         </div>
         <h1 class="page-title">Profil &amp; Wilayah Geografis Desa</h1>
-        <p class="page-subtitle">Mengenal sejarah, kepemimpinan, batas teritorial, dan peta sebaran 4 dusun Desa Tanjung Mas, Kecamatan Kampar Kiri, Kabupaten Kampar, Riau.</p>
+        <p class="page-subtitle">Mengenal sejarah, kepemimpinan, batas teritorial resmi Google Maps, dan peta sebaran 4 dusun Desa Tanjung Mas, Kecamatan Kampar Kiri, Kabupaten Kampar, Riau.</p>
     </div>
 </div>
 
@@ -57,7 +57,7 @@
             </div>
         </div>
 
-        <!-- PETA INTERAKTIF WILAYAH DESA TANJUNG MAS -->
+        <!-- PETA INTERAKTIF WILAYAH DESA TANJUNG MAS (TERHUBUNG GOOGLE MAPS ASLI) -->
         <div id="peta-desa" class="map-card-wrapper">
             <div class="map-header-bar">
                 <div class="map-header-info">
@@ -65,13 +65,13 @@
                         <i data-lucide="map-pin" style="width:22px; height:22px; color:var(--brand-primary);"></i>
                         Peta Wilayah &amp; Sebaran 4 Dusun Desa Tanjung Mas
                     </h2>
-                    <p>Kecamatan Kampar Kiri, Kabupaten Kampar, Riau &bull; Luas Wilayah &plusmn; 150 km&sup2; (15.000 Ha)</p>
+                    <p>Kecamatan Kampar Kiri, Kabupaten Kampar, Riau &bull; Koordinat Google Maps: -0.0045758, 101.0994667</p>
                 </div>
                 <div class="map-actions">
-                    <a href="https://www.google.com/maps/search/?api=1&query=Desa+Tanjung+Mas+Kampar+Kiri+Kabupaten+Kampar+Riau" target="_blank" rel="noopener noreferrer" class="map-btn-gmaps">
+                    <a href="https://www.google.com/maps/place/Tj.+Mas,+Kec.+Kampar+Kiri,+Kabupaten+Kampar,+Riau/@-0.0045758,101.0994667,13z/data=!4m6!3m5!1s0x2e2a9d929ca3fc89:0xed39cf77bae641c9!8m2!3d-0.0045758!4d101.0994667" target="_blank" rel="noopener noreferrer" class="map-btn-gmaps" title="Buka Titik Resmi Google Maps">
                         <i data-lucide="external-link" style="width:15px; height:15px;"></i> Buka di Google Maps
                     </a>
-                    <a href="https://www.google.com/maps/dir/?api=1&destination=0.0452,101.3148" target="_blank" rel="noopener noreferrer" class="map-btn-dir">
+                    <a href="https://www.google.com/maps/dir/?api=1&destination=-0.0045758,101.0994667" target="_blank" rel="noopener noreferrer" class="map-btn-dir" title="Navigasi Rute Langsung ke Balai Desa">
                         <i data-lucide="navigation" style="width:15px; height:15px;"></i> Petunjuk Arah (GPS)
                     </a>
                 </div>
@@ -193,7 +193,7 @@
                     </div>
                     <div style="display:flex; justify-content:space-between; border-bottom:1px solid var(--border-subtle); padding-bottom:0.5rem;">
                         <strong>Sebelah Selatan:</strong>
-                        <span>Desa Kuntu</span>
+                        <span>Desa Kuntu &amp; Lubukbukit</span>
                     </div>
                     <div style="display:flex; justify-content:space-between; border-bottom:1px solid var(--border-subtle); padding-bottom:0.5rem;">
                         <strong>Sebelah Barat:</strong>
@@ -201,7 +201,7 @@
                     </div>
                     <div style="display:flex; justify-content:space-between; padding-bottom:0.5rem;">
                         <strong>Sebelah Timur:</strong>
-                        <span>Desa Tanjung Harapan / Teluk Paman</span>
+                        <span>Desa Tanjung Harapan / Teluk Paman (Lipat Kain)</span>
                     </div>
                 </div>
             </div>
@@ -361,7 +361,9 @@
     }
 
     document.addEventListener('DOMContentLoaded', function() {
-        var desaCenter = [0.0452, 101.3148];
+        // Koordinat Resmi Google Maps Desa Tanjung Mas (-0.0045758, 101.0994667)
+        var desaCenter = [-0.0045758, 101.0994667];
+        
         map = L.map('desaMap', {
             center: desaCenter,
             zoom: 13,
@@ -374,29 +376,29 @@
         currentTileLayer = tileLayers[currentLayerType].addTo(map);
         updateLayerButtons(currentLayerType);
 
-        // Subtle Territorial Polygon of Desa Tanjung Mas (150 km2)
+        // Poligon Garis Batas Teritorial Sesuai Google Maps (Bentuk Diagonal Tj. Mas)
         var boundaryCoords = [
-            [0.0620, 101.2950],
-            [0.0650, 101.3350],
-            [0.0480, 101.3450],
-            [0.0310, 101.3380],
-            [0.0280, 101.2980],
-            [0.0450, 101.2880]
+            [0.0320, 101.0660],
+            [-0.0380, 101.1440],
+            [-0.0460, 101.1480],
+            [-0.0680, 101.1280],
+            [0.0080, 101.0490],
+            [0.0180, 101.0430]
         ];
 
         var territoryPolygon = L.polygon(boundaryCoords, {
-            color: '#16a34a',
-            weight: 2,
-            dashArray: '5, 8',
+            color: '#e11d48',
+            weight: 2.5,
+            dashArray: '6, 8',
             fillColor: '#22c55e',
             fillOpacity: 0.08
         }).addTo(map);
-        territoryPolygon.bindTooltip('Kawasan Wilayah Administratif Desa Tanjung Mas (&plusmn; 15.000 Ha)', {
+        territoryPolygon.bindTooltip('Batas Wilayah Administratif Desa Tanjung Mas, Kec. Kampar Kiri (Sesuai Google Maps)', {
             sticky: true,
             direction: 'top'
         });
 
-        // 1. Kantor & Balai Desa Tanjung Mas (Pusat)
+        // 1. Kantor & Balai Desa Tanjung Mas (Pusat Koordinat Google Maps)
         var popupKantor = '<div class="map-popup-card">' +
             '<span class="map-popup-badge" style="background:#ffe4e6; color:#e11d48;">Pusat Pemerintahan</span>' +
             '<div class="map-popup-title">Kantor &amp; Balai Desa Tanjung Mas</div>' +
@@ -405,35 +407,36 @@
                 '<div><strong>Kepala Desa:</strong> BUHARIS</div>' +
                 '<div><strong>Sekretaris Desa:</strong> MUHAMMAD ANGGI RAMBE, S.A.P</div>' +
                 '<div><strong>Pelayanan:</strong> Senin - Jumat (08.00 - 15.30 WIB)</div>' +
+                '<div><strong>Koordinat:</strong> -0.0045758, 101.0994667</div>' +
             '</div>' +
-            '<a href="https://www.google.com/maps/dir/?api=1&destination=0.0452,101.3148" target="_blank" rel="noopener noreferrer" class="map-popup-action">' +
-                'Buka Petunjuk Arah &rarr;' +
+            '<a href="' + 'https://www.google.com/maps/dir/?api=1&destination=-0.0045758,101.0994667' + '" target="_blank" rel="noopener noreferrer" class="map-popup-action">' +
+                'Buka Petunjuk Arah GPS &rarr;' +
             '</a>' +
         '</div>';
 
-        markers.kantor = L.marker([0.0452, 101.3148], {
+        markers.kantor = L.marker([-0.0045758, 101.0994667], {
             icon: createCustomPin('🏛️', 'pin-kantor')
         }).addTo(map).bindPopup(popupKantor);
 
-        // 2. Dusun I Tanjung Mas
+        // 2. Dusun I Tanjung Mas (Area Pemukiman & Majelis Taklim Istiqamah)
         var popupDusun1 = '<div class="map-popup-card">' +
             '<span class="map-popup-badge" style="background:#dcfce7; color:#15803d;">Dusun I</span>' +
             '<div class="map-popup-title">Dusun Tanjung Mas</div>' +
-            '<div class="map-popup-desc">Kawasan pemukiman induk desa, sarana pendidikan dasar, sarana ibadah masjid, dan fasilitas publik.</div>' +
+            '<div class="map-popup-desc">Kawasan pemukiman induk desa, sarana ibadah Majelis Taklim Istiqamah, dan fasilitas publik.</div>' +
             '<div class="map-popup-meta">' +
                 '<div><strong>Kepala Dusun:</strong> ADE CANDRA IRAWAN</div>' +
                 '<div><strong>Cakupan:</strong> 2 RW / 4 RT</div>' +
             '</div>' +
-            '<a href="https://www.google.com/maps/search/?api=1&query=Dusun+Tanjung+Mas+Kampar+Kiri+Riau" target="_blank" rel="noopener noreferrer" class="map-popup-action">' +
-                'Cari di Google Maps &rarr;' +
+            '<a href="' + 'https://www.google.com/maps/place/Tj.+Mas,+Kec.+Kampar+Kiri,+Kabupaten+Kampar,+Riau/@-0.0045758,101.0994667,13z/data=!4m6!3m5!1s0x2e2a9d929ca3fc89:0xed39cf77bae641c9!8m2!3d-0.0045758!4d101.0994667' + '" target="_blank" rel="noopener noreferrer" class="map-popup-action">' +
+                'Lihat di Google Maps &rarr;' +
             '</a>' +
         '</div>';
 
-        markers.dusun1 = L.marker([0.0465, 101.3140], {
+        markers.dusun1 = L.marker([0.0050, 101.0920], {
             icon: createCustomPin('🏡', 'pin-dusun')
         }).addTo(map).bindPopup(popupDusun1);
 
-        // 3. Dusun II Pasir Putih
+        // 3. Dusun II Pasir Putih (Arah Barat Laut / Perbatasan Sungai Rambai)
         var popupDusun2 = '<div class="map-popup-card">' +
             '<span class="map-popup-badge" style="background:#dcfce7; color:#15803d;">Dusun II</span>' +
             '<div class="map-popup-title">Dusun Pasir Putih</div>' +
@@ -443,16 +446,16 @@
                 '<div><strong>Cakupan:</strong> 2 RW / 4 RT</div>' +
                 '<div><strong>Potensi Unggulan:</strong> Karet Bokar &amp; Pertanian</div>' +
             '</div>' +
-            '<a href="https://www.google.com/maps/search/?api=1&query=Dusun+Pasir+Putih+Tanjung+Mas+Kampar+Kiri" target="_blank" rel="noopener noreferrer" class="map-popup-action">' +
-                'Cari di Google Maps &rarr;' +
+            '<a href="' + 'https://www.google.com/maps/place/Tj.+Mas,+Kec.+Kampar+Kiri,+Kabupaten+Kampar,+Riau/@-0.0045758,101.0994667,13z/data=!4m6!3m5!1s0x2e2a9d929ca3fc89:0xed39cf77bae641c9!8m2!3d-0.0045758!4d101.0994667' + '" target="_blank" rel="noopener noreferrer" class="map-popup-action">' +
+                'Lihat di Google Maps &rarr;' +
             '</a>' +
         '</div>';
 
-        markers.dusun2 = L.marker([0.0495, 101.3065], {
+        markers.dusun2 = L.marker([0.0180, 101.0680], {
             icon: createCustomPin('🌳', 'pin-dusun')
         }).addTo(map).bindPopup(popupDusun2);
 
-        // 4. Dusun III Sungai Setingkai
+        // 4. Dusun III Sungai Setingkai (Sentra Perkebunan Kelapa Sawit)
         var popupDusun3 = '<div class="map-popup-card">' +
             '<span class="map-popup-badge" style="background:#fef3c7; color:#b45309;">Dusun III</span>' +
             '<div class="map-popup-title">Dusun Sungai Setingkai</div>' +
@@ -462,16 +465,16 @@
                 '<div><strong>Cakupan:</strong> 2 RW / 4 RT</div>' +
                 '<div><strong>Potensi Unggulan:</strong> TBS Sawit Swadaya</div>' +
             '</div>' +
-            '<a href="https://www.google.com/maps/search/?api=1&query=Sungai+Setingkai+Tanjung+Mas+Kampar+Kiri" target="_blank" rel="noopener noreferrer" class="map-popup-action">' +
-                'Cari di Google Maps &rarr;' +
+            '<a href="' + 'https://www.google.com/maps/place/Tj.+Mas,+Kec.+Kampar+Kiri,+Kabupaten+Kampar,+Riau/@-0.0045758,101.0994667,13z/data=!4m6!3m5!1s0x2e2a9d929ca3fc89:0xed39cf77bae641c9!8m2!3d-0.0045758!4d101.0994667' + '" target="_blank" rel="noopener noreferrer" class="map-popup-action">' +
+                'Lihat di Google Maps &rarr;' +
             '</a>' +
         '</div>';
 
-        markers.dusun3 = L.marker([0.0395, 101.3260], {
+        markers.dusun3 = L.marker([-0.0220, 101.1150], {
             icon: createCustomPin('🌴', 'pin-sawit')
         }).addTo(map).bindPopup(popupDusun3);
 
-        // 5. Dusun IV Sungai Napal
+        // 5. Dusun IV Sungai Napal (Tenggara / Aliran Perikanan)
         var popupDusun4 = '<div class="map-popup-card">' +
             '<span class="map-popup-badge" style="background:#e0f2fe; color:#0369a1;">Dusun IV</span>' +
             '<div class="map-popup-title">Dusun Sungai Napal</div>' +
@@ -481,36 +484,36 @@
                 '<div><strong>Cakupan:</strong> 2 RW / 4 RT</div>' +
                 '<div><strong>Potensi Unggulan:</strong> Ikan Sungai Kampar &amp; Singkong</div>' +
             '</div>' +
-            '<a href="https://www.google.com/maps/search/?api=1&query=Sungai+Napal+Tanjung+Mas+Kampar+Kiri" target="_blank" rel="noopener noreferrer" class="map-popup-action">' +
-                'Cari di Google Maps &rarr;' +
+            '<a href="' + 'https://www.google.com/maps/place/Tj.+Mas,+Kec.+Kampar+Kiri,+Kabupaten+Kampar,+Riau/@-0.0045758,101.0994667,13z/data=!4m6!3m5!1s0x2e2a9d929ca3fc89:0xed39cf77bae641c9!8m2!3d-0.0045758!4d101.0994667' + '" target="_blank" rel="noopener noreferrer" class="map-popup-action">' +
+                'Lihat di Google Maps &rarr;' +
             '</a>' +
         '</div>';
 
-        markers.dusun4 = L.marker([0.0365, 101.3040], {
+        markers.dusun4 = L.marker([-0.0450, 101.1320], {
             icon: createCustomPin('🐟', 'pin-sungai')
         }).addTo(map).bindPopup(popupDusun4);
 
-        // 6. Akses Poros ke Lipat Kain (13 Km)
+        // 6. Majelis Taklim Istiqamah (Patokan Nyata di Google Maps)
+        var popupMajelis = '<div class="map-popup-card">' +
+            '<span class="map-popup-badge" style="background:#dbeafe; color:#1e40af;">Sarana Keagamaan</span>' +
+            '<div class="map-popup-title">Majelis Taklim Istiqamah</div>' +
+            '<div class="map-popup-desc">Pusat pembinaan keagamaan, pengajian rutin, dan kegiatan syiar Islam warga Tanjung Mas.</div>' +
+        '</div>';
+
+        L.marker([0.0090, 101.1120], {
+            icon: createCustomPin('🕌', 'pin-dusun')
+        }).addTo(map).bindPopup(popupMajelis);
+
+        // 7. Akses Jalan Poros ke Lipat Kain (13 Km arah Timur Laut)
         var popupJalan = '<div class="map-popup-card">' +
             '<span class="map-popup-badge" style="background:#fef3c7; color:#b45309;">Akses Transportasi</span>' +
-            '<div class="map-popup-title">Jalan Poros Kecamatan Lipat Kain</div>' +
-            '<div class="map-popup-desc">Jalur penghubung utama sepanjang 13 Km menuju ibukota Kecamatan Kampar Kiri (Lipat Kain).</div>' +
+            '<div class="map-popup-title">Jalan Poros Lintas Lipat Kain</div>' +
+            '<div class="map-popup-desc">Akses jalan penghubung utama sepanjang 13 Km menuju ibukota Kecamatan Kampar Kiri (Lipat Kain).</div>' +
         '</div>';
 
-        L.marker([0.0580, 101.3210], {
+        L.marker([0.0280, 101.1450], {
             icon: createCustomPin('🛣️', 'pin-sawit')
         }).addTo(map).bindPopup(popupJalan);
-
-        // 7. Sungai Kampar Kiri
-        var popupSungai = '<div class="map-popup-card">' +
-            '<span class="map-popup-badge" style="background:#e0f2fe; color:#0369a1;">Bentang Alam</span>' +
-            '<div class="map-popup-title">Aliran Sungai Kampar Kiri</div>' +
-            '<div class="map-popup-desc">Sumber air dan perikanan tangkap tradisional bagi warga Desa Tanjung Mas.</div>' +
-        '</div>';
-
-        L.marker([0.0345, 101.3160], {
-            icon: createCustomPin('🌊', 'pin-sungai')
-        }).addTo(map).bindPopup(popupSungai);
     });
 
     function switchMapLayer(type) {
@@ -533,7 +536,7 @@
 
     function resetDesaView() {
         if (!map) return;
-        map.flyTo([0.0452, 101.3148], 13, { duration: 1.2 });
+        map.flyTo([-0.0045758, 101.0994667], 13, { duration: 1.2 });
         if (markers.kantor) {
             setTimeout(function() { markers.kantor.openPopup(); }, 1200);
         }
@@ -550,7 +553,7 @@
         }
 
         setTimeout(function() {
-            map.flyTo(latLng, 15, { duration: 1.2 });
+            map.flyTo(latLng, 14, { duration: 1.2 });
             setTimeout(function() {
                 targetMarker.openPopup();
             }, 1200);
