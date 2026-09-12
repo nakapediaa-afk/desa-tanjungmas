@@ -560,6 +560,25 @@
         }, 300);
     }
 
+    
+        // Fitur Pembantu: Klik di Peta untuk Dapatkan Koordinat Presisi
+        map.on('click', function(e) {
+            var lat = e.latlng.lat.toFixed(7);
+            var lng = e.latlng.lng.toFixed(7);
+            var coordStr = lat + ', ' + lng;
+            
+            L.popup()
+                .setLatLng(e.latlng)
+                .setContent(
+                    '<div style="text-align:center; padding:0.5rem; font-family:sans-serif;">' +
+                    '<strong style="color:var(--brand-primary); font-size:0.9rem;">📍 Titik Koordinat:</strong><br>' +
+                    '<input type="text" value="' + coordStr + '" id="coordInput" readonly style="margin:0.4rem 0; padding:0.3rem 0.5rem; width:100%; font-size:0.85rem; font-weight:bold; text-align:center; border:1px solid #cbd5e1; border-radius:4px; background:#f8fafc; color:#0f172a;"><br>' +
+                    '<button onclick="navigator.clipboard.writeText(\'' + coordStr + '\'); this.innerText=\'Tersalin! ✔️\';" style="background:#16a34a; color:#fff; border:none; padding:0.3rem 0.75rem; border-radius:4px; font-size:0.8rem; cursor:pointer; font-weight:600;">Salin Koordinat 📋</button>' +
+                    '</div>'
+                )
+                .openOn(map);
+        });
+
     window.addEventListener('themeChanged', function(e) {
         var theme = e.detail.theme;
         if (currentLayerType !== 'satellite') {
