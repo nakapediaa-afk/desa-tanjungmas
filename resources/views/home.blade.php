@@ -108,6 +108,65 @@
     </div>
 </div>
 
+<!-- Seksi Peta & Sebaran Wilayah Desa -->
+<section class="section" style="padding:3.5rem 0;">
+    <div class="container">
+        <div style="background:var(--bg-surface); border:1px solid var(--border-subtle); border-radius:var(--radius-lg); padding:2.5rem; box-shadow:var(--shadow-md); display:grid; grid-template-columns:1.2fr 0.8fr; gap:2.5rem; align-items:center;">
+            <div>
+                <span class="badge badge-primary" style="margin-bottom:0.75rem;">Geografis &amp; Teritorial</span>
+                <h2 style="font-size:1.85rem; color:var(--text-heading); margin-bottom:1rem; line-height:1.3;">
+                    Peta Wilayah &amp; Sebaran 4 Dusun Desa Tanjung Mas
+                </h2>
+                <p style="font-size:0.95rem; color:var(--text-muted); line-height:1.75; margin-bottom:1.5rem;">
+                    Desa Tanjung Mas memiliki luas wilayah &plusmn; 150 km&sup2; di Kecamatan Kampar Kiri, Kabupaten Kampar. Terdiri dari 4 dusun dengan komoditas unggulan perkebunan kelapa sawit 500 Ha, karet 225 Ha, dan perikanan Sungai Kampar Kiri.
+                </p>
+
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.75rem; margin-bottom:1.75rem;">
+                    <div style="background:var(--bg-subtle); border-radius:var(--radius-md); padding:0.75rem 1rem; border-left:3px solid var(--brand-primary);">
+                        <strong style="color:var(--text-heading); font-size:0.88rem; display:block;">🏛️ Dusun I Tanjung Mas</strong>
+                        <span style="font-size:0.78rem; color:var(--text-muted);">Pusat Kantor Desa &amp; Pelayanan</span>
+                    </div>
+                    <div style="background:var(--bg-subtle); border-radius:var(--radius-md); padding:0.75rem 1rem; border-left:3px solid var(--brand-accent);">
+                        <strong style="color:var(--text-heading); font-size:0.88rem; display:block;">🌳 Dusun II Pasir Putih</strong>
+                        <span style="font-size:0.78rem; color:var(--text-muted);">Sentra Kebun Karet 225 Ha</span>
+                    </div>
+                    <div style="background:var(--bg-subtle); border-radius:var(--radius-md); padding:0.75rem 1rem; border-left:3px solid #d97706;">
+                        <strong style="color:var(--text-heading); font-size:0.88rem; display:block;">🌴 Dusun III Setingkai</strong>
+                        <span style="font-size:0.78rem; color:var(--text-muted);">Sentra Kebun Sawit 500 Ha</span>
+                    </div>
+                    <div style="background:var(--bg-subtle); border-radius:var(--radius-md); padding:0.75rem 1rem; border-left:3px solid #0284c7;">
+                        <strong style="color:var(--text-heading); font-size:0.88rem; display:block;">🐟 Dusun IV Sungai Napal</strong>
+                        <span style="font-size:0.78rem; color:var(--text-muted);">Perikanan Sungai Kampar Kiri</span>
+                    </div>
+                </div>
+
+                <div style="display:flex; gap:0.75rem; flex-wrap:wrap;">
+                    <a href="{{ route('profil.index') }}#peta-desa" class="btn btn-primary">
+                        <i data-lucide="map" style="width:16px; height:16px;"></i> Buka Peta Interaktif Lengkap
+                    </a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=Desa+Tanjung+Mas+Kampar+Kiri+Kabupaten+Kampar+Riau" target="_blank" rel="noopener noreferrer" class="btn btn-outline">
+                        <i data-lucide="external-link" style="width:16px; height:16px;"></i> Cari di Google Maps
+                    </a>
+                </div>
+            </div>
+
+            <div style="position:relative; border-radius:var(--radius-lg); overflow:hidden; border:1px solid var(--border-subtle); box-shadow:var(--shadow-sm); aspect-ratio:4/3; background:var(--bg-subtle);">
+                <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?w=800&auto=format&fit=crop&q=80" alt="Peta Ilustrasi Desa Tanjung Mas" style="width:100%; height:100%; object-fit:cover; filter:brightness(0.9);" loading="lazy" decoding="async">
+                <div style="position:absolute; inset:0; background:linear-gradient(to top, rgba(15, 23, 42, 0.85) 0%, rgba(15, 23, 42, 0.2) 60%, transparent 100%); display:flex; flex-direction:column; justify-content:flex-end; padding:1.5rem; color:#ffffff;">
+                    <div style="display:flex; align-items:center; gap:0.5rem; margin-bottom:0.35rem;">
+                        <span style="display:inline-block; width:10px; height:10px; border-radius:50%; background:#22c55e; box-shadow:0 0 8px #22c55e;"></span>
+                        <strong style="font-size:0.95rem; color:#ffffff;">Koordinat Kampar Kiri, Riau</strong>
+                    </div>
+                    <p style="font-size:0.8rem; color:#cbd5e1; margin-bottom:0.75rem;">13 Km ke Lipat Kain &bull; 100 Km ke Bangkinang</p>
+                    <a href="{{ route('profil.index') }}#peta-desa" style="color:#6ee7b7; font-weight:700; font-size:0.85rem; text-decoration:none; display:inline-flex; align-items:center; gap:0.3rem;">
+                        Jelajahi Peta WebGIS Desa &rarr;
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- Warta Terkini -->
 <section class="section">
     <div class="container">

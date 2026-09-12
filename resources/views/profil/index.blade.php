@@ -1,26 +1,29 @@
 @extends('layouts.app')
 
-@section('title', 'Profil & Kelembagaan Desa')
-@section('meta_desc', 'Profil resmi Desa Tanjung Mas 2025: Sejarah dari Kampung Lengung, Visi Misi Kades Buharis, Batas Wilayah, SOTK Aparatur, dan BPD.')
+@section('title', 'Profil Desa & Peta Wilayah')
+@section('meta_description', 'Profil Lengkap, Visi Misi, Sejarah, Peta Wilayah Interaktif 4 Dusun, SOTK Perangkat Desa, dan Lembaga Kemasyarakatan Desa Tanjung Mas, Kecamatan Kampar Kiri, Kabupaten Kampar, Riau.')
+
+@push('styles')
+<!-- Leaflet CSS for Interactive WebGIS Map -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+@endpush
 
 @section('content')
 <div class="page-header">
     <div class="container">
-        <div class="breadcrumbs">
+        <div class="breadcrumb">
             <a href="{{ route('home') }}">Beranda</a>
             <span>/</span>
-            <span>Profil Desa</span>
+            <span>Profil &amp; Peta Desa</span>
         </div>
-        <h1 class="page-title">Profil Resmi Desa Tanjung Mas</h1>
-        <p class="page-desc">
-            Dokumen Profil Pemerintahan Desa Tanjung Mas, Kecamatan Kampar Kiri, Kabupaten Kampar, Provinsi Riau.
-        </p>
+        <h1 class="page-title">Profil &amp; Wilayah Geografis Desa</h1>
+        <p class="page-subtitle">Mengenal sejarah, kepemimpinan, batas teritorial, dan peta sebaran 4 dusun Desa Tanjung Mas, Kecamatan Kampar Kiri, Kabupaten Kampar, Riau.</p>
     </div>
 </div>
 
-<section class="section">
+<section class="section" style="padding-top:2.5rem;">
     <div class="container">
-        <!-- Visi & Misi Resmi 2025 -->
+        <!-- Visi & Misi -->
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:2rem; margin-bottom:3.5rem;">
             <div style="background:var(--bg-surface); border:1px solid var(--border-subtle); border-radius:var(--radius-lg); padding:2rem; box-shadow:var(--shadow-sm); border-top:4px solid var(--brand-primary);">
                 <div style="display:flex; align-items:center; gap:0.5rem; margin-bottom:1rem;">
@@ -51,6 +54,104 @@
                     <li>Mewujudkan tata kelola pemerintahan desa yang bersih, partisipatif, dan responsif terhadap aspirasi masyarakat.</li>
                     <li>Menjaga stabilitas sosial dan keamanan lingkungan melalui penguatan nilai-nilai musyawarah dan gotong royong.</li>
                 </ul>
+            </div>
+        </div>
+
+        <!-- PETA INTERAKTIF WILAYAH DESA TANJUNG MAS -->
+        <div id="peta-desa" class="map-card-wrapper">
+            <div class="map-header-bar">
+                <div class="map-header-info">
+                    <h2>
+                        <i data-lucide="map-pin" style="width:22px; height:22px; color:var(--brand-primary);"></i>
+                        Peta Wilayah &amp; Sebaran 4 Dusun Desa Tanjung Mas
+                    </h2>
+                    <p>Kecamatan Kampar Kiri, Kabupaten Kampar, Riau &bull; Luas Wilayah &plusmn; 150 km&sup2; (15.000 Ha)</p>
+                </div>
+                <div class="map-actions">
+                    <a href="https://www.google.com/maps/search/?api=1&query=Desa+Tanjung+Mas+Kampar+Kiri+Kabupaten+Kampar+Riau" target="_blank" rel="noopener noreferrer" class="map-btn-gmaps">
+                        <i data-lucide="external-link" style="width:15px; height:15px;"></i> Buka di Google Maps
+                    </a>
+                    <a href="https://www.google.com/maps/dir/?api=1&destination=0.0452,101.3148" target="_blank" rel="noopener noreferrer" class="map-btn-dir">
+                        <i data-lucide="navigation" style="width:15px; height:15px;"></i> Petunjuk Arah (GPS)
+                    </a>
+                </div>
+            </div>
+
+            <!-- Toolbar Kontrol Layer -->
+            <div class="map-toolbar">
+                <div class="map-layers-group">
+                    <span style="font-weight:700; color:var(--text-heading); margin-right:0.35rem;">Pilihan Tampilan:</span>
+                    <button type="button" id="layerStandardBtn" class="map-layer-btn active" onclick="switchMapLayer('standard')">
+                        <i data-lucide="map" style="width:14px; height:14px;"></i> Peta Jalan
+                    </button>
+                    <button type="button" id="layerDarkBtn" class="map-layer-btn" onclick="switchMapLayer('dark')">
+                        <i data-lucide="moon" style="width:14px; height:14px;"></i> Mode Gelap
+                    </button>
+                    <button type="button" id="layerSatBtn" class="map-layer-btn" onclick="switchMapLayer('satellite')">
+                        <i data-lucide="globe" style="width:14px; height:14px;"></i> Foto Satelit
+                    </button>
+                </div>
+                <div>
+                    <button type="button" class="map-layer-btn" onclick="resetDesaView()" title="Fokus ke Balai Kantor Desa">
+                        <i data-lucide="locate-fixed" style="width:14px; height:14px;"></i> Fokus Desa
+                    </button>
+                </div>
+            </div>
+
+            <!-- Container Peta Leaflet -->
+            <div id="desaMap"></div>
+
+            <!-- 4 Dusun Interactive Jump Cards -->
+            <div class="map-dusun-grid">
+                <div class="map-dusun-card" onclick="focusToMarker('kantor')">
+                    <div class="map-dusun-icon" style="background:#ffe4e6; color:#e11d48;">
+                        <i data-lucide="landmark" style="width:20px; height:20px;"></i>
+                    </div>
+                    <div>
+                        <div class="map-dusun-title">Kantor &amp; Balai Desa</div>
+                        <div class="map-dusun-sub">Pusat Pelayanan &bull; Kades Buharis</div>
+                    </div>
+                </div>
+
+                <div class="map-dusun-card" onclick="focusToMarker('dusun1')">
+                    <div class="map-dusun-icon">
+                        <i data-lucide="home" style="width:20px; height:20px;"></i>
+                    </div>
+                    <div>
+                        <div class="map-dusun-title">Dusun I Tanjung Mas</div>
+                        <div class="map-dusun-sub">Kadus Ade Candra Irawan &bull; 4 RT</div>
+                    </div>
+                </div>
+
+                <div class="map-dusun-card" onclick="focusToMarker('dusun2')">
+                    <div class="map-dusun-icon">
+                        <i data-lucide="trees" style="width:20px; height:20px;"></i>
+                    </div>
+                    <div>
+                        <div class="map-dusun-title">Dusun II Pasir Putih</div>
+                        <div class="map-dusun-sub">Kadus Sariyal &bull; Kebun Karet 225 Ha</div>
+                    </div>
+                </div>
+
+                <div class="map-dusun-card" onclick="focusToMarker('dusun3')">
+                    <div class="map-dusun-icon" style="background:#fef3c7; color:#d97706;">
+                        <i data-lucide="palmtree" style="width:20px; height:20px;"></i>
+                    </div>
+                    <div>
+                        <div class="map-dusun-title">Dusun III Sungai Setingkai</div>
+                        <div class="map-dusun-sub">Kadus Wahyudi &bull; Kebun Sawit 500 Ha</div>
+                    </div>
+                </div>
+
+                <div class="map-dusun-card" onclick="focusToMarker('dusun4')">
+                    <div class="map-dusun-icon" style="background:#e0f2fe; color:#0284c7;">
+                        <i data-lucide="fish" style="width:20px; height:20px;"></i>
+                    </div>
+                    <div>
+                        <div class="map-dusun-title">Dusun IV Sungai Napal</div>
+                        <div class="map-dusun-sub">Kadus Gustin Harahap &bull; Aliran Kampar</div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -127,7 +228,7 @@
                     </div>
                     <div style="display:flex; justify-content:space-between; border-bottom:1px solid var(--border-subtle); padding-bottom:0.5rem;">
                         <span>Jarak ke Ibukota Kecamatan (Lipat Kain):</span>
-                        <strong>13 Km (Jalan Tanah / Poros)</strong>
+                        <strong>13 Km (Jalan Poros)</strong>
                     </div>
                     <div style="display:flex; justify-content:space-between; padding-bottom:0.5rem;">
                         <span>Jarak ke Ibukota Kabupaten (Bangkinang):</span>
@@ -223,3 +324,244 @@
     </div>
 </section>
 @endsection
+
+@push('scripts')
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script>
+    var map;
+    var currentTileLayer;
+    var currentLayerType = 'standard';
+    var markers = {};
+
+    // Base Tile Layers
+    var tileLayers = {
+        standard: L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors'
+        }),
+        dark: L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+            maxZoom: 19,
+            attribution: '&copy; CartoDB &copy; OpenStreetMap'
+        }),
+        satellite: L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+            maxZoom: 19,
+            attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+        })
+    };
+
+    function createCustomPin(iconHtml, pinClass) {
+        return L.divIcon({
+            html: '<div class="custom-map-pin ' + pinClass + '" style="width:34px; height:34px; font-size:16px;">' + iconHtml + '</div>',
+            className: 'custom-pin-wrapper',
+            iconSize: [34, 34],
+            iconAnchor: [17, 17],
+            popupAnchor: [0, -18]
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var desaCenter = [0.0452, 101.3148];
+        map = L.map('desaMap', {
+            center: desaCenter,
+            zoom: 13,
+            scrollWheelZoom: false
+        });
+
+        // Determine initial theme
+        var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        currentLayerType = isDark ? 'dark' : 'standard';
+        currentTileLayer = tileLayers[currentLayerType].addTo(map);
+        updateLayerButtons(currentLayerType);
+
+        // Subtle Territorial Polygon of Desa Tanjung Mas (150 km2)
+        var boundaryCoords = [
+            [0.0620, 101.2950],
+            [0.0650, 101.3350],
+            [0.0480, 101.3450],
+            [0.0310, 101.3380],
+            [0.0280, 101.2980],
+            [0.0450, 101.2880]
+        ];
+
+        var territoryPolygon = L.polygon(boundaryCoords, {
+            color: '#16a34a',
+            weight: 2,
+            dashArray: '5, 8',
+            fillColor: '#22c55e',
+            fillOpacity: 0.08
+        }).addTo(map);
+        territoryPolygon.bindTooltip('Kawasan Wilayah Administratif Desa Tanjung Mas (&plusmn; 15.000 Ha)', {
+            sticky: true,
+            direction: 'top'
+        });
+
+        // 1. Kantor & Balai Desa Tanjung Mas (Pusat)
+        var popupKantor = '<div class="map-popup-card">' +
+            '<span class="map-popup-badge" style="background:#ffe4e6; color:#e11d48;">Pusat Pemerintahan</span>' +
+            '<div class="map-popup-title">Kantor &amp; Balai Desa Tanjung Mas</div>' +
+            '<div class="map-popup-desc">Pusat tata kelola pemerintahan desa, pelayanan administrasi surat menyurat warga, dan balai musyawarah masyarakat.</div>' +
+            '<div class="map-popup-meta">' +
+                '<div><strong>Kepala Desa:</strong> BUHARIS</div>' +
+                '<div><strong>Sekretaris Desa:</strong> MUHAMMAD ANGGI RAMBE, S.A.P</div>' +
+                '<div><strong>Pelayanan:</strong> Senin - Jumat (08.00 - 15.30 WIB)</div>' +
+            '</div>' +
+            '<a href="https://www.google.com/maps/dir/?api=1&destination=0.0452,101.3148" target="_blank" rel="noopener noreferrer" class="map-popup-action">' +
+                'Buka Petunjuk Arah &rarr;' +
+            '</a>' +
+        '</div>';
+
+        markers.kantor = L.marker([0.0452, 101.3148], {
+            icon: createCustomPin('🏛️', 'pin-kantor')
+        }).addTo(map).bindPopup(popupKantor);
+
+        // 2. Dusun I Tanjung Mas
+        var popupDusun1 = '<div class="map-popup-card">' +
+            '<span class="map-popup-badge" style="background:#dcfce7; color:#15803d;">Dusun I</span>' +
+            '<div class="map-popup-title">Dusun Tanjung Mas</div>' +
+            '<div class="map-popup-desc">Kawasan pemukiman induk desa, sarana pendidikan dasar, sarana ibadah masjid, dan fasilitas publik.</div>' +
+            '<div class="map-popup-meta">' +
+                '<div><strong>Kepala Dusun:</strong> ADE CANDRA IRAWAN</div>' +
+                '<div><strong>Cakupan:</strong> 2 RW / 4 RT</div>' +
+            '</div>' +
+            '<a href="https://www.google.com/maps/search/?api=1&query=Dusun+Tanjung+Mas+Kampar+Kiri+Riau" target="_blank" rel="noopener noreferrer" class="map-popup-action">' +
+                'Cari di Google Maps &rarr;' +
+            '</a>' +
+        '</div>';
+
+        markers.dusun1 = L.marker([0.0465, 101.3140], {
+            icon: createCustomPin('🏡', 'pin-dusun')
+        }).addTo(map).bindPopup(popupDusun1);
+
+        // 3. Dusun II Pasir Putih
+        var popupDusun2 = '<div class="map-popup-card">' +
+            '<span class="map-popup-badge" style="background:#dcfce7; color:#15803d;">Dusun II</span>' +
+            '<div class="map-popup-title">Dusun Pasir Putih</div>' +
+            '<div class="map-popup-desc">Sentra perkebunan karet rakyat produktif seluas 225 Hektar serta budidaya tanaman palawija dan jagung.</div>' +
+            '<div class="map-popup-meta">' +
+                '<div><strong>Kepala Dusun:</strong> SARIYAL</div>' +
+                '<div><strong>Cakupan:</strong> 2 RW / 4 RT</div>' +
+                '<div><strong>Potensi Unggulan:</strong> Karet Bokar &amp; Pertanian</div>' +
+            '</div>' +
+            '<a href="https://www.google.com/maps/search/?api=1&query=Dusun+Pasir+Putih+Tanjung+Mas+Kampar+Kiri" target="_blank" rel="noopener noreferrer" class="map-popup-action">' +
+                'Cari di Google Maps &rarr;' +
+            '</a>' +
+        '</div>';
+
+        markers.dusun2 = L.marker([0.0495, 101.3065], {
+            icon: createCustomPin('🌳', 'pin-dusun')
+        }).addTo(map).bindPopup(popupDusun2);
+
+        // 4. Dusun III Sungai Setingkai
+        var popupDusun3 = '<div class="map-popup-card">' +
+            '<span class="map-popup-badge" style="background:#fef3c7; color:#b45309;">Dusun III</span>' +
+            '<div class="map-popup-title">Dusun Sungai Setingkai</div>' +
+            '<div class="map-popup-desc">Sentra perkebunan kelapa sawit swadaya masyarakat seluas 500 Hektar dan kawasan peternakan terpadu.</div>' +
+            '<div class="map-popup-meta">' +
+                '<div><strong>Kepala Dusun:</strong> WAHYUDI</div>' +
+                '<div><strong>Cakupan:</strong> 2 RW / 4 RT</div>' +
+                '<div><strong>Potensi Unggulan:</strong> TBS Sawit Swadaya</div>' +
+            '</div>' +
+            '<a href="https://www.google.com/maps/search/?api=1&query=Sungai+Setingkai+Tanjung+Mas+Kampar+Kiri" target="_blank" rel="noopener noreferrer" class="map-popup-action">' +
+                'Cari di Google Maps &rarr;' +
+            '</a>' +
+        '</div>';
+
+        markers.dusun3 = L.marker([0.0395, 101.3260], {
+            icon: createCustomPin('🌴', 'pin-sawit')
+        }).addTo(map).bindPopup(popupDusun3);
+
+        // 5. Dusun IV Sungai Napal
+        var popupDusun4 = '<div class="map-popup-card">' +
+            '<span class="map-popup-badge" style="background:#e0f2fe; color:#0369a1;">Dusun IV</span>' +
+            '<div class="map-popup-title">Dusun Sungai Napal</div>' +
+            '<div class="map-popup-desc">Kawasan sentra perikanan tepian Sungai Kampar Kiri (80 nelayan) serta pertanian ubi singkong 10 Hektar.</div>' +
+            '<div class="map-popup-meta">' +
+                '<div><strong>Kepala Dusun:</strong> GUSTIN HARAHAP</div>' +
+                '<div><strong>Cakupan:</strong> 2 RW / 4 RT</div>' +
+                '<div><strong>Potensi Unggulan:</strong> Ikan Sungai Kampar &amp; Singkong</div>' +
+            '</div>' +
+            '<a href="https://www.google.com/maps/search/?api=1&query=Sungai+Napal+Tanjung+Mas+Kampar+Kiri" target="_blank" rel="noopener noreferrer" class="map-popup-action">' +
+                'Cari di Google Maps &rarr;' +
+            '</a>' +
+        '</div>';
+
+        markers.dusun4 = L.marker([0.0365, 101.3040], {
+            icon: createCustomPin('🐟', 'pin-sungai')
+        }).addTo(map).bindPopup(popupDusun4);
+
+        // 6. Akses Poros ke Lipat Kain (13 Km)
+        var popupJalan = '<div class="map-popup-card">' +
+            '<span class="map-popup-badge" style="background:#fef3c7; color:#b45309;">Akses Transportasi</span>' +
+            '<div class="map-popup-title">Jalan Poros Kecamatan Lipat Kain</div>' +
+            '<div class="map-popup-desc">Jalur penghubung utama sepanjang 13 Km menuju ibukota Kecamatan Kampar Kiri (Lipat Kain).</div>' +
+        '</div>';
+
+        L.marker([0.0580, 101.3210], {
+            icon: createCustomPin('🛣️', 'pin-sawit')
+        }).addTo(map).bindPopup(popupJalan);
+
+        // 7. Sungai Kampar Kiri
+        var popupSungai = '<div class="map-popup-card">' +
+            '<span class="map-popup-badge" style="background:#e0f2fe; color:#0369a1;">Bentang Alam</span>' +
+            '<div class="map-popup-title">Aliran Sungai Kampar Kiri</div>' +
+            '<div class="map-popup-desc">Sumber air dan perikanan tangkap tradisional bagi warga Desa Tanjung Mas.</div>' +
+        '</div>';
+
+        L.marker([0.0345, 101.3160], {
+            icon: createCustomPin('🌊', 'pin-sungai')
+        }).addTo(map).bindPopup(popupSungai);
+    });
+
+    function switchMapLayer(type) {
+        if (!map) return;
+        currentLayerType = type;
+        map.removeLayer(currentTileLayer);
+        currentTileLayer = tileLayers[type].addTo(map);
+        updateLayerButtons(type);
+    }
+
+    function updateLayerButtons(activeType) {
+        var stdBtn = document.getElementById('layerStandardBtn');
+        var darkBtn = document.getElementById('layerDarkBtn');
+        var satBtn = document.getElementById('layerSatBtn');
+        
+        if (stdBtn) stdBtn.classList.toggle('active', activeType === 'standard');
+        if (darkBtn) darkBtn.classList.toggle('active', activeType === 'dark');
+        if (satBtn) satBtn.classList.toggle('active', activeType === 'satellite');
+    }
+
+    function resetDesaView() {
+        if (!map) return;
+        map.flyTo([0.0452, 101.3148], 13, { duration: 1.2 });
+        if (markers.kantor) {
+            setTimeout(function() { markers.kantor.openPopup(); }, 1200);
+        }
+    }
+
+    function focusToMarker(key) {
+        if (!map || !markers[key]) return;
+        var targetMarker = markers[key];
+        var latLng = targetMarker.getLatLng();
+        
+        var mapElem = document.getElementById('peta-desa');
+        if (mapElem) {
+            mapElem.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        setTimeout(function() {
+            map.flyTo(latLng, 15, { duration: 1.2 });
+            setTimeout(function() {
+                targetMarker.openPopup();
+            }, 1200);
+        }, 300);
+    }
+
+    window.addEventListener('themeChanged', function(e) {
+        var theme = e.detail.theme;
+        if (currentLayerType !== 'satellite') {
+            switchMapLayer(theme === 'dark' ? 'dark' : 'standard');
+        }
+    });
+</script>
+@endpush

@@ -62,6 +62,7 @@
 
     <!-- Pure Modern CSS Architecture -->
     <link rel="stylesheet" href="{{ asset('css/desa.css') }}">
+    @stack('styles')
 </head>
 <body id="top">
 
@@ -307,6 +308,7 @@
                 if (themeLabel) themeLabel.textContent = 'Mode Gelap';
             }
             localStorage.setItem('desa_theme', theme);
+            window.dispatchEvent(new CustomEvent('themeChanged', { detail: { theme } }));
         }
 
         const savedTheme = localStorage.getItem('desa_theme') || 'light';
@@ -333,5 +335,6 @@
         if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
         if (backdrop) backdrop.addEventListener('click', closeDrawer);
     </script>
+    @stack('scripts')
 </body>
 </html>
