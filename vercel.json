@@ -42,6 +42,8 @@
     "LOG_CHANNEL": "stderr",
     "APP_MAINTENANCE_DRIVER": "file",
     "DB_CONNECTION": "sqlite",
-    "DB_DATABASE": "/tmp/database.sqlite"
+    "DB_DATABASE": "/tmp/database.sqlite",
+    "APP_URL": "https://desa-tanjungmas.vercel.app",
+    "ASSET_URL": "https://desa-tanjungmas.vercel.app"
   }
 }
