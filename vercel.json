@@ -34,7 +34,7 @@
   "env": {
     "VERCEL": "1",
     "APP_ENV": "production",
-    "APP_DEBUG": "false",
+    "APP_DEBUG": "true",
     "APP_KEY": "base64:u4r+kG1l8+oI6YV3w7vP9uQ1rT4sW8yZ0aB2cE4fG8=",
     "APP_CONFIG_CACHE": "/tmp/config.php",
     "APP_EVENTS_CACHE": "/tmp/events.php",

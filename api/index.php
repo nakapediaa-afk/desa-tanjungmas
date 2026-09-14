@@ -17,12 +17,14 @@ foreach ($tmpDirs as $dir) {
     }
 }
 
-// Copy pre-seeded SQLite database to /tmp if not exists
+// Copy pre-seeded SQLite database to /tmp if not exists or empty
 $sqliteSource = __DIR__ . '/../database/database.sqlite';
 $sqliteDest = '/tmp/database.sqlite';
 
-if (!file_exists($sqliteDest) && file_exists($sqliteSource)) {
-    @copy($sqliteSource, $sqliteDest);
+if (file_exists($sqliteSource)) {
+    if (!file_exists($sqliteDest) || filesize($sqliteDest) === 0) {
+        @copy($sqliteSource, $sqliteDest);
+    }
 }
 
 // Forward request to Laravel public/index.php
