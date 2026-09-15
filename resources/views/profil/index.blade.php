@@ -686,7 +686,7 @@
                         '<a href="https://www.google.com/maps/dir/?api=1&destination=' + lat + ',' + lng + '" target="_blank" rel="noopener noreferrer" class="map-popup-action" style="flex:1; text-align:center;">' +
                             'Petunjuk Arah GPS &rarr;' +
                         '</a>' +
-                        '<button onclick="navigator.clipboard.writeText('' + coordFormatted + ''); this.innerText='Tersalin!';" style="background:var(--bg-subtle); border:1px solid var(--border-subtle); color:var(--text-heading); padding:0.4rem 0.6rem; border-radius:6px; font-size:0.75rem; cursor:pointer; font-weight:600;" title="Salin Koordinat">Salin 📍</button>' +
+                        '<button onclick="copyCoordToClipboard(\'' + coordFormatted + '\', this)" style="background:var(--bg-subtle); border:1px solid var(--border-subtle); color:var(--text-heading); padding:0.4rem 0.6rem; border-radius:6px; font-size:0.75rem; cursor:pointer; font-weight:600;" title="Salin Koordinat">Salin 📍</button>' +
                     '</div>' +
                 '</div>';
 
@@ -708,7 +708,7 @@
                     '<div style="text-align:center; padding:0.5rem; font-family:sans-serif; min-width:200px;">' +
                     '<strong style="color:var(--brand-primary); font-size:0.9rem;">📍 Titik Koordinat Terpilih:</strong><br>' +
                     '<input type="text" value="' + coordStr + '" id="coordInput" readonly style="margin:0.4rem 0; padding:0.35rem 0.5rem; width:100%; font-size:0.85rem; font-weight:bold; text-align:center; border:1px solid #cbd5e1; border-radius:6px; background:#f8fafc; color:#0f172a;"><br>' +
-                    '<button onclick="navigator.clipboard.writeText('' + coordStr + ''); this.innerText='Tersalin! ✅';" style="background:#16a34a; color:#fff; border:none; padding:0.35rem 0.85rem; border-radius:6px; font-size:0.8rem; cursor:pointer; font-weight:600; box-shadow:0 2px 6px rgba(22,163,74,0.3);">Salin Koordinat 📋</button>' +
+                    '<button onclick="copyCoordToClipboard(\'' + coordStr + '\', this)" style="background:#16a34a; color:#fff; border:none; padding:0.35rem 0.85rem; border-radius:6px; font-size:0.8rem; cursor:pointer; font-weight:600; box-shadow:0 2px 6px rgba(22,163,74,0.3);">Salin Koordinat 📋</button>' +
                     '</div>'
                 )
                 .openOn(map);
@@ -721,6 +721,16 @@
             }
         }, 1000);
     });
+
+    function copyCoordToClipboard(text, btn) {
+        if (navigator.clipboard) {
+            navigator.clipboard.writeText(text);
+        }
+        if (btn) {
+            btn.innerText = 'Tersalin! ✅';
+            setTimeout(function() { btn.innerText = 'Salin 📍'; }, 2000);
+        }
+    }
 
     function switchMapLayer(type) {
         if (!map) return;
