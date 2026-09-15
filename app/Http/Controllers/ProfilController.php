@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\PerangkatDesa;
 use App\Models\Kependudukan;
+use App\Models\Landmark;
 
 class ProfilController extends Controller {
     public function index() {
@@ -45,6 +46,7 @@ class ProfilController extends Controller {
             ['nama' => 'Karang Taruna "Karya Muda"', 'anggota' => '1 Kelompok', 'icon' => 'users-round', 'deskripsi' => 'Wadah kreativitas, olahraga, dan bakti sosial generasi muda desa.']
         ];
 
-        return view('profil.index', compact('perangkat', 'stats', 'sejarahKronologi', 'bpd', 'lembagaKemasyarakatan'));
+        $landmarks = Landmark::orderBy('urutan')->get();
+        return view('profil.index', compact('perangkat', 'stats', 'sejarahKronologi', 'bpd', 'lembagaKemasyarakatan', 'landmarks'));
     }
 }

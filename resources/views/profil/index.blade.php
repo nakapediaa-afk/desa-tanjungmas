@@ -134,138 +134,26 @@
                 </div>
 
                 <!-- Grid Kartu Lokasi -->
-                <div class="map-dusun-grid" id="landmarksGrid" style="padding:0; background:transparent; border-top:none;">
-                    
-                    <!-- 1. Kantor Desa -->
-                    <div class="map-dusun-card landmark-item" data-category="pemerintahan" onclick="focusToLandmark('kantor')">
-                        <div class="map-dusun-icon" style="background:#ffe4e6; color:#e11d48;">
-                            <i data-lucide="landmark" style="width:20px; height:20px;"></i>
+                <div class="map-dusun-grid" id="landmarksGrid" style="padding:0; background:transparent; border-top:none; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
+                    @forelse($landmarks as $l)
+                    <div class="map-dusun-card landmark-item" data-category="{{ $l->kategori }}" onclick="focusToLandmark('{{ $l->slug }}')" style="display:flex; gap:0.85rem; align-items:flex-start; cursor:pointer;">
+                        @if($l->foto)
+                        <img src="{{ $l->foto }}" alt="{{ $l->nama }}" style="width:68px; height:68px; border-radius:var(--radius-md); object-fit:cover; flex-shrink:0; border:1px solid var(--border-subtle); box-shadow:var(--shadow-xs);">
+                        @else
+                        <div class="map-dusun-icon" style="background:{{ $l->badge_bg }}; color:{{ $l->badge_color }};">
+                            <span>{{ $l->icon }}</span>
                         </div>
-                        <div>
-                            <span class="landmark-badge" style="background:#ffe4e6; color:#be123c;">Pusat Pemerintahan</span>
-                            <div class="map-dusun-title">Kantor Desa Tanjung Mas</div>
-                            <div class="map-dusun-sub">Pusat Pelayanan &bull; Kades Buharis</div>
-                            <div style="font-size:0.75rem; color:var(--text-muted); margin-top:0.35rem;">-0.0394343, 101.1183128</div>
-                        </div>
-                    </div>
-
-                    <!-- 2. Stadion Tanjung Mas -->
-                    <div class="map-dusun-card landmark-item" data-category="olahraga" onclick="focusToLandmark('stadion')">
-                        <div class="map-dusun-icon" style="background:#d1fae5; color:#059669;">
-                            <i data-lucide="trophy" style="width:20px; height:20px;"></i>
-                        </div>
-                        <div>
-                            <span class="landmark-badge" style="background:#d1fae5; color:#047857;">Sarana Olahraga</span>
-                            <div class="map-dusun-title">Stadion Tanjung Mas</div>
-                            <div class="map-dusun-sub">Lapangan Sepak Bola &amp; Turnamen Pemuda</div>
-                            <div style="font-size:0.75rem; color:var(--text-muted); margin-top:0.35rem;">-0.0380927, 101.1178587</div>
+                        @endif
+                        <div style="flex:1; min-width:0;">
+                            <span class="landmark-badge" style="background:{{ $l->badge_bg }}; color:{{ $l->badge_color }};">{{ $l->badge }}</span>
+                            <div class="map-dusun-title" style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{{ $l->nama }}</div>
+                            <div class="map-dusun-sub" style="font-size:0.8rem; line-height:1.4;">{{ Str::limit($l->deskripsi, 60) }}</div>
+                            <div style="font-size:0.72rem; color:var(--text-muted); margin-top:0.35rem; font-family:monospace;">📍 {{ number_format((float)$l->latitude, 6) }}, {{ number_format((float)$l->longitude, 6) }}</div>
                         </div>
                     </div>
-
-                    <!-- 3. Masjid Al Ikhlas -->
-                    <div class="map-dusun-card landmark-item" data-category="sarana" onclick="focusToLandmark('masjid')">
-                        <div class="map-dusun-icon" style="background:#ccfbf1; color:#0f766e;">
-                            <i data-lucide="moon" style="width:20px; height:20px;"></i>
-                        </div>
-                        <div>
-                            <span class="landmark-badge" style="background:#ccfbf1; color:#115e59;">Tempat Ibadah</span>
-                            <div class="map-dusun-title">Masjid Al Ikhlas</div>
-                            <div class="map-dusun-sub">Masjid Utama &amp; Majelis Taklim Desa</div>
-                            <div style="font-size:0.75rem; color:var(--text-muted); margin-top:0.35rem;">-0.0349101, 101.1111048</div>
-                        </div>
-                    </div>
-
-                    <!-- 4. SD N 020 Desa Tanjung Mas -->
-                    <div class="map-dusun-card landmark-item" data-category="sarana" onclick="focusToLandmark('sd')">
-                        <div class="map-dusun-icon" style="background:#dbeafe; color:#2563eb;">
-                            <i data-lucide="graduation-cap" style="width:20px; height:20px;"></i>
-                        </div>
-                        <div>
-                            <span class="landmark-badge" style="background:#dbeafe; color:#1e40af;">Pendidikan</span>
-                            <div class="map-dusun-title">SD N 020 Desa Tanjung Mas</div>
-                            <div class="map-dusun-sub">Sekolah Dasar Negeri Kebanggaan Desa</div>
-                            <div style="font-size:0.75rem; color:var(--text-muted); margin-top:0.35rem;">-0.0353696, 101.1115009</div>
-                        </div>
-                    </div>
-
-                    <!-- 5. Posko KKN 2026 (KATAMAS) -->
-                    <div class="map-dusun-card landmark-item" data-category="kkn" onclick="focusToLandmark('posko')">
-                        <div class="map-dusun-icon" style="background:#f3e8ff; color:#7c3aed;">
-                            <i data-lucide="users" style="width:20px; height:20px;"></i>
-                        </div>
-                        <div>
-                            <span class="landmark-badge" style="background:#f3e8ff; color:#6d28d9;">Posko Mahasiswa</span>
-                            <div class="map-dusun-title">Posko KKN 2026 (KATAMAS)</div>
-                            <div class="map-dusun-sub">Sinergi Mahasiswa Membangun Desa</div>
-                            <div style="font-size:0.75rem; color:var(--text-muted); margin-top:0.35rem;">-0.0350038, 101.1150911</div>
-                        </div>
-                    </div>
-
-                    <!-- 6. Endang Laundry -->
-                    <div class="map-dusun-card landmark-item" data-category="umkm" onclick="focusToLandmark('laundry')">
-                        <div class="map-dusun-icon" style="background:#fef3c7; color:#d97706;">
-                            <i data-lucide="sparkles" style="width:20px; height:20px;"></i>
-                        </div>
-                        <div>
-                            <span class="landmark-badge" style="background:#fef3c7; color:#b45309;">UMKM Jasa</span>
-                            <div class="map-dusun-title">Endang Laundry</div>
-                            <div class="map-dusun-sub">Jasa Binatu &amp; Cuci Bersih Warga</div>
-                            <div style="font-size:0.75rem; color:var(--text-muted); margin-top:0.35rem;">-0.0357961, 101.1187371</div>
-                        </div>
-                    </div>
-
-                    <!-- 7. RM Jewel and Jenny -->
-                    <div class="map-dusun-card landmark-item" data-category="umkm" onclick="focusToLandmark('rm_jewel')">
-                        <div class="map-dusun-icon" style="background:#ffedd5; color:#ea580c;">
-                            <i data-lucide="utensils" style="width:20px; height:20px;"></i>
-                        </div>
-                        <div>
-                            <span class="landmark-badge" style="background:#ffedd5; color:#c2410c;">Kuliner Lokal</span>
-                            <div class="map-dusun-title">RM Jewel and Jenny</div>
-                            <div class="map-dusun-sub">Rumah Makan Selera Nusantara &amp; Masakan Khas</div>
-                            <div style="font-size:0.75rem; color:var(--text-muted); margin-top:0.35rem;">-0.0357251, 101.1195664</div>
-                        </div>
-                    </div>
-
-                    <!-- 8. Toko Sitar Raja Tani -->
-                    <div class="map-dusun-card landmark-item" data-category="umkm" onclick="focusToLandmark('toko_tani')">
-                        <div class="map-dusun-icon" style="background:#ecfccb; color:#65a30d;">
-                            <i data-lucide="shopping-bag" style="width:20px; height:20px;"></i>
-                        </div>
-                        <div>
-                            <span class="landmark-badge" style="background:#ecfccb; color:#4d7c0f;">Saprotan Pertanian</span>
-                            <div class="map-dusun-title">Toko Sitar Raja Tani</div>
-                            <div class="map-dusun-sub">Penyedia Pupuk &amp; Sarana Kebun Sawit/Karet</div>
-                            <div style="font-size:0.75rem; color:var(--text-muted); margin-top:0.35rem;">-0.0357921, 101.1205412</div>
-                        </div>
-                    </div>
-
-                    <!-- 9. Jembatan Gantung -->
-                    <div class="map-dusun-card landmark-item" data-category="alam" onclick="focusToLandmark('jembatan')">
-                        <div class="map-dusun-icon" style="background:#cffafe; color:#0891b2;">
-                            <i data-lucide="git-commit" style="width:20px; height:20px;"></i>
-                        </div>
-                        <div>
-                            <span class="landmark-badge" style="background:#cffafe; color:#0e7490;">Infrastruktur Vital</span>
-                            <div class="map-dusun-title">Jembatan Gantung</div>
-                            <div class="map-dusun-sub">Akses Transportasi Warga Menyeberang Sungai</div>
-                            <div style="font-size:0.75rem; color:var(--text-muted); margin-top:0.35rem;">-0.0291138, 101.1112966</div>
-                        </div>
-                    </div>
-
-                    <!-- 10. Sungai Setingkai -->
-                    <div class="map-dusun-card landmark-item" data-category="alam" onclick="focusToLandmark('sungai')">
-                        <div class="map-dusun-icon" style="background:#e0f2fe; color:#0284c7;">
-                            <i data-lucide="droplets" style="width:20px; height:20px;"></i>
-                        </div>
-                        <div>
-                            <span class="landmark-badge" style="background:#e0f2fe; color:#0369a1;">Geografis Alam</span>
-                            <div class="map-dusun-title">Sungai Setingkai</div>
-                            <div class="map-dusun-sub">Aliran Air Alami Penopang Pertanian &amp; Perikanan</div>
-                            <div style="font-size:0.75rem; color:var(--text-muted); margin-top:0.35rem;">-0.0292396, 101.1116503</div>
-                        </div>
-                    </div>
-
+                    @empty
+                    <p style="color:var(--text-muted); font-size:0.9rem;">Belum ada titik lokasi yang terdaftar.</p>
+                    @endforelse
                 </div>
             </div>
         </div>
@@ -450,163 +338,42 @@
     var markers = {};
 
     // 10 Titik Koordinat Terverifikasi Asli
-    var landmarksData = {
-        kantor: {
-            title: 'Kantor Desa Tanjung Mas',
-            badge: 'Pusat Pemerintahan',
-            badgeBg: '#ffe4e6',
-            badgeColor: '#e11d48',
-            pinClass: 'pin-kantor',
-            icon: '🏛️',
-            coords: [-0.0394343050684987, 101.11831278472829],
-            desc: 'Pusat tata kelola pemerintahan desa, pelayanan surat administrasi, dan balai musyawarah masyarakat Desa Tanjung Mas.',
-            meta: [
-                'Kepala Desa: <strong>BUHARIS</strong>',
-                'Sekretaris Desa: <strong>MUHAMMAD ANGGI RAMBE, S.A.P</strong>',
-                'Jam Pelayanan: Senin - Jumat (08.00 - 15.30 WIB)'
-            ]
-        },
-        stadion: {
-            title: 'Stadion Tanjung Mas',
-            badge: 'Sarana Olahraga',
-            badgeBg: '#d1fae5',
-            badgeColor: '#059669',
-            pinClass: 'pin-stadion',
-            icon: '⚽',
-            coords: [-0.03809274611092639, 101.11785873794389],
-            desc: 'Lapangan sepak bola utama dan pusat turnamen pemuda desa serta kegiatan perayaan hari kemerdekaan dan keolahragaan.',
-            meta: [
-                'Fasilitas: Lapangan Bola &amp; Tribun Terbuka',
-                'Pengelola: Pemuda Karang Taruna Desa'
-            ]
-        },
-        masjid: {
-            title: 'Masjid Al Ikhlas',
-            badge: 'Sarana Ibadah',
-            badgeBg: '#ccfbf1',
-            badgeColor: '#0f766e',
-            pinClass: 'pin-masjid',
-            icon: '🕌',
-            coords: [-0.03491013564125363, 101.11110477658805],
-            desc: 'Masjid utama desa sebagai pusat shalat berjamaah, pengajian akbar, peringatan hari besar Islam, dan pembinaan majelis taklim.',
-            meta: [
-                'Status: Masjid Jami Desa Tanjung Mas',
-                'Kegiatan: Shalat 5 Waktu, Majelis Taklim, TPA/MDA'
-            ]
-        },
-        sd: {
-            title: 'SD N 020 Desa Tanjung Mas',
-            badge: 'Pendidikan Dasar',
-            badgeBg: '#dbeafe',
-            badgeColor: '#2563eb',
-            pinClass: 'pin-sekolah',
-            icon: '🏫',
-            coords: [-0.035369617472599764, 101.1115008732436],
-            desc: 'Sekolah Dasar Negeri 020 yang mendidik dan membina tunas bangsa generasi penerus masyarakat Desa Tanjung Mas.',
-            meta: [
-                'Jenjang: Sekolah Dasar Negeri (SDN)',
-                'Status: Terakreditasi Kemendikbud'
-            ]
-        },
-        posko: {
-            title: 'Posko KKN 2026 (KATAMAS)',
-            badge: 'Posko Mahasiswa',
-            badgeBg: '#f3e8ff',
-            badgeColor: '#7c3aed',
-            pinClass: 'pin-posko',
-            icon: '🎓',
-            coords: [-0.03500384516210058, 101.11509114343623],
-            desc: 'Pusat posko mahasiswa Kuliah Kerja Nyata (KKN) 2026 KATAMAS yang aktif mengabdi memajukan desa dan digitalisasi UMKM.',
-            meta: [
-                'Program: KKN Tematik &amp; Pemberdayaan Warga',
-                'Mitra: Pemerintah Desa Tanjung Mas'
-            ]
-        },
-        laundry: {
-            title: 'Endang Laundry',
-            badge: 'UMKM Jasa',
-            badgeBg: '#fef3c7',
-            badgeColor: '#d97706',
-            pinClass: 'pin-umkm',
-            icon: '🧺',
-            coords: [-0.03579608863801613, 101.1187371097514],
-            desc: 'Usaha binatu dan pencucian pakaian kiloan warga terpercaya, bersih, rapi, dan harum.',
-            meta: [
-                'Kategori: Jasa Cuci Kiloan &amp; Satuan',
-                'Layanan: Antar Jemput Warga Sekitar'
-            ]
-        },
-        rm_jewel: {
-            title: 'Rumah Makan Jewel and Jenny',
-            badge: 'Kuliner Lokal',
-            badgeBg: '#ffedd5',
-            badgeColor: '#ea580c',
-            pinClass: 'pin-umkm',
-            icon: '🍽️',
-            coords: [-0.035725050634152614, 101.11956638882182],
-            desc: 'Rumah makan favorit warga dan pelintas jalan menyajikan aneka sajian masakan khas nusantara dan lauk lezat berselera.',
-            meta: [
-                'Menu Unggulan: Masakan Ikan Sungai &amp; Lauk Kampung',
-                'Layanan: Makan di Tempat &amp; Pesanan Nasi Kotak'
-            ]
-        },
-        toko_tani: {
-            title: 'Toko Sitar Raja Tani',
-            badge: 'Saprotan Pertanian',
-            badgeBg: '#ecfccb',
-            badgeColor: '#65a30d',
-            pinClass: 'pin-umkm',
-            icon: '🌾',
-            coords: [-0.035792065319827274, 101.12054117020318],
-            desc: 'Penyedia sarana produksi pertanian terlengkap, pupuk tanaman sawit &amp; karet, herbisida, dan perlengkapan perkebunan petani.',
-            meta: [
-                'Komoditas: Pupuk, Obat Hama, Alat Pertanian',
-                'Pelayanan: Petani Sawit &amp; Karet Rakyat'
-            ]
-        },
-        jembatan: {
-            title: 'Jembatan Gantung',
-            badge: 'Infrastruktur Vital',
-            badgeBg: '#cffafe',
-            badgeColor: '#0891b2',
-            pinClass: 'pin-jembatan',
-            icon: '🌉',
-            coords: [-0.029113756100239137, 101.11129655828843],
-            desc: 'Infrastruktur jembatan gantung ikonik yang menghubungkan akses transportasi, mobilitas warga, dan jalur angkut hasil kebun.',
-            meta: [
-                'Fungsi: Jembatan Penyeberangan Roda 2 &amp; Pejalan Kaki',
-                'Lokasi: Melintasi Aliran Sungai Setingkai'
-            ]
-        },
-        sungai: {
-            title: 'Sungai Setingkai',
-            badge: 'Geografis Alami',
-            badgeBg: '#e0f2fe',
-            badgeColor: '#0284c7',
-            pinClass: 'pin-sungai',
-            icon: '🌊',
-            coords: [-0.029239586357994438, 101.11165030714561],
-            desc: 'Aliran sungai alami yang asri, sumber air vital bagi ekosistem pertanian, dan spot pemancingan ikan tradisional warga lokal.',
-            meta: [
-                'Aliran: Mengalir ke Daerah Aliran Sungai Kampar Kiri',
-                'Potensi: Perikanan Sungai &amp; Irigasi Alami'
-            ]
-        }
-    };
+    var dbLandmarks = @json($landmarks ?? []);
+    var landmarksData = {};
 
-    // Base Tile Layers
+    if (dbLandmarks && dbLandmarks.length > 0) {
+        dbLandmarks.forEach(function(l) {
+            landmarksData[l.slug] = {
+                title: l.nama,
+                badge: l.badge || 'Titik Lokasi',
+                badgeBg: l.badge_bg || '#dcfce7',
+                badgeColor: l.badge_color || '#15803d',
+                pinClass: l.pin_class || 'pin-dusun',
+                icon: l.icon || '📍',
+                coords: [parseFloat(l.latitude), parseFloat(l.longitude)],
+                foto: l.foto,
+                desc: l.deskripsi,
+                meta: Array.isArray(l.meta) ? l.meta : []
+            };
+        });
+    }
+
+    // Base Tile Layers (Official Google Maps Tiles)
     var tileLayers = {
-        standard: L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 19,
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors'
+        standard: L.tileLayer('https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
+            maxZoom: 21,
+            maxNativeZoom: 19,
+            attribution: '&copy; Google Maps'
         }),
         dark: L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-            maxZoom: 19,
+            maxZoom: 20,
+            maxNativeZoom: 19,
             attribution: '&copy; CartoDB &copy; OpenStreetMap'
         }),
-        satellite: L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-            maxZoom: 19,
-            attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+        satellite: L.tileLayer('https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}', {
+            maxZoom: 21,
+            maxNativeZoom: 19,
+            attribution: '&copy; Google Earth / Google Maps Hybrid'
         })
     };
 
@@ -677,7 +444,10 @@
                     metaHtml += '</div>';
                 }
 
+                var photoHtml = item.foto ? '<div style="margin:-1rem -1rem 0.75rem -1rem; overflow:hidden; max-height:140px;"><img src="' + item.foto + '" alt="' + item.title + '" style="width:100%; height:130px; object-fit:cover; display:block;"></div>' : '';
+
                 var popupHtml = '<div class="map-popup-card">' +
+                    photoHtml +
                     '<span class="map-popup-badge" style="background:' + item.badgeBg + '; color:' + item.badgeColor + ';">' + item.badge + '</span>' +
                     '<div class="map-popup-title">' + item.icon + ' ' + item.title + '</div>' +
                     '<div class="map-popup-desc">' + item.desc + '</div>' +

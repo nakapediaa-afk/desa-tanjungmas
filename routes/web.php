@@ -36,6 +36,10 @@ Route::delete('/admin/berita/{id}', [AdminController::class, 'destroyBerita'])->
 Route::post('/admin/umkm', [AdminController::class, 'storeUmkm'])->name('admin.umkm.store');
 Route::delete('/admin/umkm/{id}', [AdminController::class, 'destroyUmkm'])->name('admin.umkm.destroy');
 
+Route::post('/admin/landmarks', [AdminController::class, 'storeLandmark'])->name('admin.landmarks.store');
+Route::post('/admin/landmarks/{id}', [AdminController::class, 'updateLandmark'])->name('admin.landmarks.update');
+Route::delete('/admin/landmarks/{id}', [AdminController::class, 'destroyLandmark'])->name('admin.landmarks.destroy');
+
 // Dynamic SEO XML Sitemap
 Route::get('/sitemap.xml', function () {
     $beritas = \App\Models\Berita::latest()->get();
