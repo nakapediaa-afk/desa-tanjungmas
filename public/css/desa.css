@@ -1696,3 +1696,55 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 0.78rem;
     color: var(--text-muted);
 }
+
+/* Extra Landmark Pin Styles */
+.pin-stadion { background: linear-gradient(135deg, #059669, #047857); color: #ffffff; }
+.pin-masjid { background: linear-gradient(135deg, #0d9488, #0f766e); color: #ffffff; }
+.pin-sekolah { background: linear-gradient(135deg, #2563eb, #1d4ed8); color: #ffffff; }
+.pin-posko { background: linear-gradient(135deg, #7c3aed, #6d28d9); color: #ffffff; }
+.pin-umkm { background: linear-gradient(135deg, #f59e0b, #d97706); color: #ffffff; }
+.pin-jembatan { background: linear-gradient(135deg, #0891b2, #0e7490); color: #ffffff; }
+
+/* Filter Tabs for Landmark Directory */
+.map-filter-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.map-filter-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.45rem 0.9rem;
+    border-radius: 9999px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: 1px solid var(--border-subtle);
+    background: var(--bg-surface);
+    color: var(--text-muted);
+    transition: all 0.2s ease;
+}
+
+.map-filter-chip:hover {
+    border-color: var(--brand-primary);
+    color: var(--brand-primary);
+}
+
+.map-filter-chip.active {
+    background: var(--brand-primary);
+    color: #ffffff;
+    border-color: var(--brand-primary);
+    box-shadow: 0 2px 8px rgba(22, 163, 74, 0.3);
+}
+
+.landmark-badge {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    border-radius: 9999px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+}

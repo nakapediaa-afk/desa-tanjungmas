@@ -144,7 +144,7 @@
                     <a href="{{ route('profil.index') }}#peta-desa" class="btn btn-primary">
                         <i data-lucide="map" style="width:16px; height:16px;"></i> Buka Peta Interaktif Lengkap
                     </a>
-                    <a href="https://www.google.com/maps/place/Tj.+Mas,+Kec.+Kampar+Kiri,+Kabupaten+Kampar,+Riau/@-0.0045758,101.0994667,13z/data=!4m6!3m5!1s0x2e2a9d929ca3fc89:0xed39cf77bae641c9!8m2!3d-0.0045758!4d101.0994667" target="_blank" rel="noopener noreferrer" class="btn btn-outline">
+                    <a href="https://www.google.com/maps/search/?api=1&query=-0.0394343,101.1183128" target="_blank" rel="noopener noreferrer" class="btn btn-outline">
                         <i data-lucide="external-link" style="width:16px; height:16px;"></i> Cari di Google Maps
                     </a>
                 </div>
