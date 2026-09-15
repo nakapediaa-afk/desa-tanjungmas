@@ -12,6 +12,11 @@ $app = Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->trustProxies(at: '*');
+        // Exclude admin routes from CSRF token mismatch error on serverless Vercel
+        $middleware->validateCsrfTokens(except: [
+            'admin/*',
+            'admin/login',
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

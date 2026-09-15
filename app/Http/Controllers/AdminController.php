@@ -18,18 +18,23 @@ class AdminController extends Controller {
     public function loginSubmit(Request $request) {
         if ($request->password === 'admin123' || $request->password === '123456') {
             session(['is_admin' => true]);
-            return redirect()->route('admin.dashboard')->with('success', 'Berhasil masuk sebagai Admin Desa');
+            cookie()->queue(cookie('admin_auth', 'active', 120, '/', null, true, true));
+            return redirect()->route('admin.dashboard')->with('success', 'Selamat datang! Berhasil masuk sebagai Pengelola Desa.');
         }
         return back()->with('error', 'PIN / Password Admin salah!');
     }
 
     public function logout() {
         session()->forget('is_admin');
-        return redirect()->route('home')->with('success', 'Berhasil keluar dari Admin');
+        cookie()->queue(cookie()->forget('admin_auth'));
+        return redirect()->route('home')->with('success', 'Berhasil keluar dari sesi Admin');
     }
 
     public function dashboard() {
-        if (!session('is_admin')) return redirect()->route('admin.login');
+        if (!session('is_admin') && request()->cookie('admin_auth') !== 'active') {
+            return redirect()->route('admin.login');
+        }
+        session(['is_admin' => true]);
 
         $berita = Berita::latest()->get();
         $umkm = Umkm::latest()->get();
@@ -41,7 +46,8 @@ class AdminController extends Controller {
     }
 
     public function updateStats(Request $request) {
-        if (!session('is_admin')) return redirect()->route('admin.login');
+        if (!session('is_admin') && request()->cookie('admin_auth') !== 'active') return redirect()->route('admin.login');
+        session(['is_admin' => true]);
 
         $stats = Kependudukan::first();
         if ($stats) {
@@ -61,7 +67,8 @@ class AdminController extends Controller {
     }
 
     public function storeBerita(Request $request) {
-        if (!session('is_admin')) return redirect()->route('admin.login');
+        if (!session('is_admin') && request()->cookie('admin_auth') !== 'active') return redirect()->route('admin.login');
+        session(['is_admin' => true]);
 
         Berita::create([
             'judul' => $request->judul,
@@ -77,13 +84,15 @@ class AdminController extends Controller {
     }
 
     public function destroyBerita($id) {
-        if (!session('is_admin')) return redirect()->route('admin.login');
+        if (!session('is_admin') && request()->cookie('admin_auth') !== 'active') return redirect()->route('admin.login');
+        session(['is_admin' => true]);
         Berita::destroy($id);
         return back()->with('success', 'Berita berhasil dihapus');
     }
 
     public function storeUmkm(Request $request) {
-        if (!session('is_admin')) return redirect()->route('admin.login');
+        if (!session('is_admin') && request()->cookie('admin_auth') !== 'active') return redirect()->route('admin.login');
+        session(['is_admin' => true]);
 
         Umkm::create([
             'nama_produk' => $request->nama_produk,
@@ -99,13 +108,15 @@ class AdminController extends Controller {
     }
 
     public function destroyUmkm($id) {
-        if (!session('is_admin')) return redirect()->route('admin.login');
+        if (!session('is_admin') && request()->cookie('admin_auth') !== 'active') return redirect()->route('admin.login');
+        session(['is_admin' => true]);
         Umkm::destroy($id);
         return back()->with('success', 'Produk UMKM dihapus');
     }
 
     public function storeLandmark(Request $request) {
-        if (!session('is_admin')) return redirect()->route('admin.login');
+        if (!session('is_admin') && request()->cookie('admin_auth') !== 'active') return redirect()->route('admin.login');
+        session(['is_admin' => true]);
 
         $request->validate([
             'nama' => 'required|string|max:255',
@@ -159,7 +170,8 @@ class AdminController extends Controller {
     }
 
     public function updateLandmark(Request $request, $id) {
-        if (!session('is_admin')) return redirect()->route('admin.login');
+        if (!session('is_admin') && request()->cookie('admin_auth') !== 'active') return redirect()->route('admin.login');
+        session(['is_admin' => true]);
 
         $landmark = Landmark::findOrFail($id);
 
@@ -190,7 +202,8 @@ class AdminController extends Controller {
     }
 
     public function destroyLandmark($id) {
-        if (!session('is_admin')) return redirect()->route('admin.login');
+        if (!session('is_admin') && request()->cookie('admin_auth') !== 'active') return redirect()->route('admin.login');
+        session(['is_admin' => true]);
         Landmark::destroy($id);
         return back()->with('success', 'Titik lokasi berhasil dihapus dari peta');
     }

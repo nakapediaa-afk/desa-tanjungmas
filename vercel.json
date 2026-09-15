@@ -44,6 +44,9 @@
     "DB_CONNECTION": "sqlite",
     "DB_DATABASE": "/tmp/database.sqlite",
     "APP_URL": "https://desa-tanjungmas.vercel.app",
-    "ASSET_URL": "https://desa-tanjungmas.vercel.app"
+    "ASSET_URL": "https://desa-tanjungmas.vercel.app",
+    "APP_NAME": "DesaTanjungMas",
+    "SESSION_COOKIE": "tanjungmas_session",
+    "SESSION_SECURE_COOKIE": "true"
   }
 }
